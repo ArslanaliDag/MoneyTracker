@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textSize">20sp</dimen>
+    <dimen name="paddingLL">7dp</dimen>
+    <dimen name="margin_l">16dp</dimen>
+    <dimen name="textSizePlus">40sp</dimen>
+    <dimen name="namePadding">10dp</dimen>
+    <dimen name="textCardPlus">19sp</dimen>
 </resources>

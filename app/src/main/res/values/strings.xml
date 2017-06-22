@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MoneyTracker</string>
+    <string name="name_hint">Название</string>
+    <string name="price_hint">0 &#x584;</string>
 </resources>
