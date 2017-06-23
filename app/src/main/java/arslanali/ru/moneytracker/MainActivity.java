@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // "кнопка" плюс
         final TextView add = (TextView) findViewById(R.id.add);
 
         // Поле для ввода названия
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Добавляем слушателя на изменение ссотояния ввода текста в поле "названия"
         name.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -30,7 +32,12 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 // при вводе текста активируем "плюс"
-                add.setEnabled(true);
+                // add.setEnabled(true);
+                if (isEmpty(name)) {
+                    add.setEnabled(false);
+                } else {
+                    add.setEnabled(true);
+                }
             }
 
             @Override
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Добавляем слушателя на изменение ссотояния ввода текста в поле "рубль"
         ruble.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -53,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 // при вводе текста активируем "плюс"
-                add.setEnabled(true);
+                // add.setEnabled(true);
+
+                if (isEmpty(ruble)) {
+                    add.setEnabled(false);
+                } else {
+                    add.setEnabled(true);
+                }
             }
 
             @Override
@@ -76,5 +90,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    // Проверка пустоеполе ввода или нет
+    private boolean isEmpty(EditText etText) {
+
+        if (etText.getText().toString().trim().length() > 0)
+            return false;
+
+        return true;
     }
 }
