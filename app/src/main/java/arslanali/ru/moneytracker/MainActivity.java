@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView add = (TextView) findViewById(R.id.add);
 
         final EditText name = (EditText) findViewById(R.id.name);
+        // add listener on enter text
         name.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final EditText ruble = (EditText) findViewById(R.id.ruble);
+        // add listener on enter text
         ruble.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    // Check EditTExt is empty or not
+    // Check EditText is empty or not
     private boolean isEmpty(EditText etText) {
 
         if (etText.getText().toString().trim().length() > 0)
