@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorCardPlus"
-        android:orientation="horizontal"
         android:elevation="10dp"
+        android:orientation="horizontal"
         android:padding="@dimen/paddingLL">
 
         <EditText
@@ -27,8 +27,8 @@
             android:textSize="@dimen/textCardPlus" />
 
         <EditText
-            android:id="@+id/editText"
-            android:layout_width="60dp"
+            android:id="@+id/ruble"
+            android:layout_width="@dimen/editWidth"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@android:color/transparent"

@@ -6,4 +6,5 @@
     <dimen name="textSizePlus">40sp</dimen>
     <dimen name="namePadding">10dp</dimen>
     <dimen name="textCardPlus">19sp</dimen>
+    <dimen name="editWidth">60dp</dimen>
 </resources>
