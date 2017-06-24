@@ -14,13 +14,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // "кнопка" плюс
         final TextView add = (TextView) findViewById(R.id.add);
 
-        // Поле для ввода названия
         final EditText name = (EditText) findViewById(R.id.name);
-
-        // Добавляем слушателя на изменение ссотояния ввода текста в поле "названия"
         name.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -31,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                // при вводе текста активируем "плюс"
-                // add.setEnabled(true);
                 if (isEmpty(name)) {
                     add.setEnabled(false);
                 } else {
@@ -46,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Поле для ввода рублей
         final EditText ruble = (EditText) findViewById(R.id.ruble);
-
-        // Добавляем слушателя на изменение ссотояния ввода текста в поле "рубль"
         ruble.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -59,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                // при вводе текста активируем "плюс"
-                // add.setEnabled(true);
 
                 if (isEmpty(ruble)) {
                     add.setEnabled(false);
@@ -92,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    // Проверка пустоеполе ввода или нет
+    // Check EditTExt is empty or not
     private boolean isEmpty(EditText etText) {
 
         if (etText.getText().toString().trim().length() > 0)
