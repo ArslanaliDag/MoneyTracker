@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             // Insert data in variable. Cashed data
             final Item item = items.get(position);
             holder.name.setText(item.name);
-            holder.price.setText(String.valueOf(item.price) + " Р");
+            holder.price.setText(String.valueOf(item.price) + getString(R.string.ruble));;
         }
 
         @Override

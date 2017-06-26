@@ -3,5 +3,5 @@
     <string name="activity_new">Новая задача</string>
     <string name="name_hint">Название</string>
     <string name="price_hint">0 &#x584;</string>
-    <string name="ruble">\u20BD</string>
+    <string name="ruble">\u00A0 \u20BD</string>
 </resources>
