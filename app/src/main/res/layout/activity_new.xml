@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_pattern"
+    tools:context="arslanali.ru.moneytracker.New">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorCardPlus"
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/paddingLL">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="3.76"
+            android:background="@color/colorBackgroundText"
+            android:hint="@string/name_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/namePadding"
+            android:textSize="@dimen/textCardPlus" />
+
+        <EditText
+            android:id="@+id/ruble"
+            android:layout_width="@dimen/editWidth"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:hint="@string/price_hint"
+            android:inputType="number"
+            android:paddingStart="@dimen/margin_l"
+            android:textSize="@dimen/textCardPlus" />
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:paddingEnd="@dimen/margin_l"
+            android:paddingStart="@dimen/margin_l"
+            android:text="+"
+            android:textSize="@dimen/textSizePlus"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</FrameLayout>

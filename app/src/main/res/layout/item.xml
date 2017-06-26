@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="@dimen/margin_small">
+
+    <TextView
+        android:id="@+id/nameItem"
+        style="@style/nameStyle"
+        android:layout_alignParentStart="true"
+        android:text="Сковородка с антипригарный покрытием" />
+
+    <TextView
+        android:id="@+id/priceItem"
+        style="@style/priceStyle"
+        android:layout_alignParentEnd="true"
+        android:text="55р" />
+</RelativeLayout>
