@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="horizontal"
     android:padding="@dimen/margin_small">
 
     <TextView
         android:id="@+id/nameItem"
         style="@style/nameStyle"
-        android:layout_alignParentStart="true"
-        android:text="Сковородка с антипригарный покрытием" />
+        android:layout_toLeftOf="@+id/priceItem"
+        android:text="Текст для визуальной проверки как расширяется item при большом количестве текста"
+        tools:ignore="HardcodedText" />
+
+    <!-- Need using id with plus (layout_toLeftOf="@+id/priceItem").
+       https://stackoverflow.com/questions/10726130/cant-find-id-reference-no-resource-matches-the-given-name-at -->
 
     <TextView
         android:id="@+id/priceItem"
         style="@style/priceStyle"
         android:layout_alignParentEnd="true"
-        android:text="55р" />
+
+        android:text="55 Р"
+        tools:ignore="HardcodedText" />
+
 </RelativeLayout>
