@@ -2,8 +2,11 @@ package arslanali.ru.moneytracker;
 
 public class Item {
 
-    final String name;
-    final int price;
+    public static final String TYPE_EXPENSE = "expense";
+    public static final String TYPE_INCOME = "income";
+
+    public final String name;
+    public final int price;
 
     public Item(String name, int price) {
         this.name = name;

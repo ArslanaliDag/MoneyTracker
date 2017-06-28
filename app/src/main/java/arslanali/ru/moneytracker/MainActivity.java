@@ -1,15 +1,16 @@
 package arslanali.ru.moneytracker;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
-import java.util.ArrayList;
-import java.util.List;
+import arslanali.ru.moneytracker.fragments.BalansFragment;
+import arslanali.ru.moneytracker.fragments.ItemsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,67 +19,74 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final RecyclerView item = (RecyclerView) findViewById(R.id.items);
-        item.setAdapter(new ItemAdapter());
+        // add toolbar
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+
+        final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        final ViewPager pages = (ViewPager) findViewById(R.id.pages);
+        pages.setAdapter(new MainPagerAdapter());
+        tabs.setupWithViewPager(pages);
     }
 
-    // Inner class item in variable cash.
-    private class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
-        final List<Item> items = new ArrayList<>();
-
-        // add data in RW
-        ItemAdapter() {
-            items.add(new Item("Молоко", 35));
-            items.add(new Item("Зубная щетка", 1500));
-            items.add(new Item("Сковородка Tefal с антипригарный покрытием", 55));
-            items.add(new Item("Баранина", 250));
-            items.add(new Item("Яблоки", 30));
-            items.add(new Item("Масло", 20));
-            items.add(new Item("Макароны", 120));
-            items.add(new Item("Текст для проверки и еще раз текст для проверки", 10020));
-            items.add(new Item("Финики", 150));
-            items.add(new Item("Apple IPad", 20000));
-            items.add(new Item("Вишня", 100));
-            items.add(new Item("Сок", 10));
-            items.add(new Item("Рыба", 110));
-            items.add(new Item("Смартфон Galaxy S8", 40000));
-        }
-
-        @Override
-        public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, null));
-        }
-
-        @Override
-        public void onBindViewHolder(ItemViewHolder holder, int position) {
-            // Insert data in variable. Cashed data
-            final Item item = items.get(position);
-            holder.name.setText(item.name);
-            holder.price.setText(String.valueOf(item.price) + " Р");
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
     }
 
-    // Inner class. Speed scrolling
-    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView name, price;
+    private class MainPagerAdapter extends FragmentPagerAdapter {
+        private final String[] titles;
 
-        public ItemViewHolder(View itemView) {
-            super(itemView);
-
-            // Without itemView.findViewById this parameter gives an error java.lang.NullPointerException
-            name = (TextView) itemView.findViewById(R.id.nameItem);
-            price = (TextView) itemView.findViewById(R.id.priceItem);
+        MainPagerAdapter() {
+            super(getSupportFragmentManager());
+            titles = getResources().getStringArray(R.array.main_pager_titles);
         }
 
         @Override
-        public void onClick(View view) {
-            view.setSelected(true);
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    ItemsFragment fragmentRashod = new ItemsFragment();
+                    // pass the parameter
+                    Bundle argsRashod = new Bundle();
+                    argsRashod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
+                    fragmentRashod.setArguments(argsRashod);
+                    return fragmentRashod;
+                case 1:
+                    ItemsFragment fragmentDohod = new ItemsFragment();
+                    // pass the parameter
+                    Bundle argsDohod = new Bundle();
+                    argsDohod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_INCOME);
+                    fragmentDohod.setArguments(argsDohod);
+                    return fragmentDohod;
+                case 2:
+                    BalansFragment balansFragment = new BalansFragment();
+                    return balansFragment;
 
+// Example, use two fragments. Made for my practice
+//                case 0:
+//                    fragmentRashod = new ItemsFragment();
+//                    return fragmentRashod;
+//                case 1:
+//                    fragmentDohod = new ItemsDohodFragment();
+//                    return fragmentDohod;
+//                case 2:
+//                    fragmentBalans = new BalansFragment();
+//                    return fragmentBalans;
+            }
+            return new Fragment();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
         }
     }
 }

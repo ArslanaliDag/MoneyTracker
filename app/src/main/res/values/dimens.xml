@@ -7,7 +7,7 @@
     <dimen name="namePadding">10dp</dimen>
     <dimen name="textCardPlus">19sp</dimen>
     <dimen name="editWidth">60dp</dimen>
-    <dimen name="margin_small">5dp</dimen>
+    <dimen name="margin_small">10dp</dimen>
     <dimen name="textSizeName">20dp</dimen>
     <dimen name="textSizePrice">25dp</dimen>
 </resources>
