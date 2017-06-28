@@ -8,4 +8,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorItemSelected">#f5ecd0</color>
     <color name="colorItem">#FCC418</color>
+    <color name="colorIndicator">#FCC418</color>
+    <color name="colorActive">#FFFFFF</color>
+    <color name="colorInactive">#dbece6</color>
 </resources>

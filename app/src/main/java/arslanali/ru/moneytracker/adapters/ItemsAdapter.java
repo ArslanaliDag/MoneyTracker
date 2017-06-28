@@ -12,14 +12,14 @@ import java.util.List;
 import arslanali.ru.moneytracker.Item;
 import arslanali.ru.moneytracker.R;
 
-class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
 
     // add data in RW
-    ItemsAdapter() {
+    public ItemsAdapter() {
         items.add(new Item("Молоко", 35));
         items.add(new Item("Зубная щетка", 1500));
-        items.add(new Item("Сковородка Tefal с антипригарный покрытием", 55));
+        items.add(new Item("Сковородка Tefal с антипригарный покрытием", 500));
         items.add(new Item("Баранина", 250));
         items.add(new Item("Яблоки", 30));
         items.add(new Item("Масло", 20));

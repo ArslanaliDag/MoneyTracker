@@ -4,4 +4,15 @@
     <string name="name_hint">Название</string>
     <string name="price_hint">0 &#x584;</string>
     <string name="ruble">\u00A0 \u20BD</string>
+
+    <!-- Array strings, tab header name-->
+    <string name="expenses">Расходы</string>
+    <string name="incomes">Доходы</string>
+    <string name="balance">Баланс</string>
+    <array name="main_pager_titles">
+        <item>@string/expenses</item>
+        <item>@string/incomes</item>
+        <item>@string/balance</item>
+    </array>
+
 </resources>
