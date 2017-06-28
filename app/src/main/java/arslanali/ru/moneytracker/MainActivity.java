@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import arslanali.ru.moneytracker.fragments.BalansFragment;
 import arslanali.ru.moneytracker.fragments.ItemsDohodFragment;
 import arslanali.ru.moneytracker.fragments.ItemsRashodFragment;
 
@@ -46,12 +47,29 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            final ItemsRashodFragment fragmentRashod;
+            final ItemsDohodFragment fragmentDohod;
+            final BalansFragment fragmentBalans;
 
-            final ItemsRashodFragment fragment = new ItemsRashodFragment();
+            switch (position) {
+                case 0:
+                    fragmentRashod = new ItemsRashodFragment();
+                    return fragmentRashod;
+                case 1:
+                    fragmentDohod = new ItemsDohodFragment();
+                    return fragmentDohod;
+                case 2:
+                    fragmentBalans = new BalansFragment();
+                    return fragmentBalans;
+            }
+
+            return new Fragment();
+            //  final ItemsRashodFragment fragment = new ItemsRashodFragment();
 //            Bundle args = new Bundle();
 //            args.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
 //            fragment.setArguments(args);
-            return fragment;
+            //return fragment;
+
         }
 
         @Override
