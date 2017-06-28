@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
-import arslanali.ru.moneytracker.fragments.ItemsFragment;
+import arslanali.ru.moneytracker.fragments.ItemsDohodFragment;
+import arslanali.ru.moneytracker.fragments.ItemsRashodFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // add toolbar
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
 
@@ -24,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager pages = (ViewPager) findViewById(R.id.pages);
         pages.setAdapter(new MainPagerAdapter());
         tabs.setupWithViewPager(pages);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items_rashod to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
     }
 
     private class MainPagerAdapter extends FragmentPagerAdapter {
@@ -36,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            final ItemsFragment fragment = new ItemsFragment();
+
+            final ItemsDohodFragment fragment = new ItemsDohodFragment();
 //            Bundle args = new Bundle();
-//            args.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
+//            args.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
 //            fragment.setArguments(args);
             return fragment;
         }

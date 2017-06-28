@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import arslanali.ru.moneytracker.R;
-import arslanali.ru.moneytracker.adapters.ItemsAdapter;
+import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
+import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
 
-public class ItemsFragment extends Fragment {
+public class ItemsDohodFragment extends Fragment {
 
     public static final String ARG_TYPE = "type";
 
@@ -22,15 +23,15 @@ public class ItemsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.items, null);
+        return inflater.inflate(R.layout.items_dohod, null);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Init data in items
+        // Init data in items_rashod
         final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-        items.setAdapter(new ItemsAdapter());
+        items.setAdapter(new ItemsDohodAdapter());
 
         // type = getArguments().getString(ARG_TYPE);
     }

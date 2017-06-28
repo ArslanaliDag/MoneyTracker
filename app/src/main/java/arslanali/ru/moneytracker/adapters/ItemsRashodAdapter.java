@@ -12,11 +12,11 @@ import java.util.List;
 import arslanali.ru.moneytracker.Item;
 import arslanali.ru.moneytracker.R;
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
+public class ItemsRashodAdapter extends RecyclerView.Adapter<ItemsRashodAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
 
     // add data in RW
-    public ItemsAdapter() {
+    public ItemsRashodAdapter() {
         items.add(new Item("Молоко", 35));
         items.add(new Item("Зубная щетка", 1500));
         items.add(new Item("Сковородка Tefal с антипригарный покрытием", 500));
@@ -35,7 +35,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, null));
+        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rashod, null));
     }
 
     @Override
