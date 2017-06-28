@@ -26,7 +26,7 @@ public class ItemsDohodAdapter extends RecyclerView.Adapter<ItemsDohodAdapter.It
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dohod, null));
+        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rashod, null));
     }
 
     @Override

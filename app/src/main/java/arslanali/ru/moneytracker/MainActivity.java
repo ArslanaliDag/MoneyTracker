@@ -15,6 +15,10 @@ import arslanali.ru.moneytracker.fragments.ItemsRashodFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+//    ItemsRashodFragment fragmentRashod = null;
+    // ItemsDohodFragment fragmentDohod = null;
+//    BalansFragment fragmentBalans = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,29 +51,37 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            final ItemsRashodFragment fragmentRashod;
-            final ItemsDohodFragment fragmentDohod;
-            final BalansFragment fragmentBalans;
-
             switch (position) {
                 case 0:
-                    fragmentRashod = new ItemsRashodFragment();
+                    ItemsRashodFragment fragmentRashod = new ItemsRashodFragment();
+                    // pass the parameter
+                    Bundle argsRashod = new Bundle();
+                    argsRashod.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
+                    fragmentRashod.setArguments(argsRashod);
                     return fragmentRashod;
                 case 1:
-                    fragmentDohod = new ItemsDohodFragment();
+                    ItemsRashodFragment fragmentDohod = new ItemsRashodFragment();
+                    // pass the parameter
+                    Bundle argsDohod = new Bundle();
+                    argsDohod.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_INCOME);
+                    fragmentDohod.setArguments(argsDohod);
                     return fragmentDohod;
                 case 2:
-                    fragmentBalans = new BalansFragment();
-                    return fragmentBalans;
+                    BalansFragment balansFragment = new BalansFragment();
+                    return balansFragment;
+
+// Example, use two fragments. Made for my practice
+//                case 0:
+//                    fragmentRashod = new ItemsRashodFragment();
+//                    return fragmentRashod;
+//                case 1:
+//                    fragmentDohod = new ItemsDohodFragment();
+//                    return fragmentDohod;
+//                case 2:
+//                    fragmentBalans = new BalansFragment();
+//                    return fragmentBalans;
             }
-
             return new Fragment();
-            //  final ItemsRashodFragment fragment = new ItemsRashodFragment();
-//            Bundle args = new Bundle();
-//            args.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
-//            fragment.setArguments(args);
-            //return fragment;
-
         }
 
         @Override

@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import arslanali.ru.moneytracker.R;
+import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
 import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
 
 public class ItemsRashodFragment extends Fragment {
 
     public static final String ARG_TYPE = "type";
-
     private String type;
 
     @Nullable
@@ -28,10 +28,19 @@ public class ItemsRashodFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Init data in items_rashod
-        final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-        items.setAdapter(new ItemsRashodAdapter());
 
-        // type = getArguments().getString(ARG_TYPE);
+        // read, get incoming parameters
+        type = getArguments().getString(ARG_TYPE);
+
+        if (type == "expense") {
+            // Init data rashod RecyclerView items_rashod
+            final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
+            items.setAdapter(new ItemsRashodAdapter());
+
+        } else if (type == "income") {
+            // Init data dohod RecyclerView items_dohod
+            final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
+            items.setAdapter(new ItemsDohodAdapter());
+        }
     }
 }
