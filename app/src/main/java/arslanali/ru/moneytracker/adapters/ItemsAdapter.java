@@ -15,6 +15,7 @@ import arslanali.ru.moneytracker.R;
 class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
 
+    // add data in RW
     ItemsAdapter() {
         items.add(new Item("Молоко", 35));
         items.add(new Item("Зубная щетка", 1500));
@@ -39,6 +40,7 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
+        // Insert data in variable. Cashed data
         final Item item = items.get(position);
         holder.name.setText(item.name);
         holder.price.setText(String.valueOf(item.price));
@@ -49,11 +51,13 @@ class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
         return items.size();
     }
 
+    // Inner class. Speed scrolling
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView name, price;
 
         ItemViewHolder(View itemView) {
             super(itemView);
+            // Without itemView.findViewById this parameter gives an error java.lang.NullPointerException
             name = (TextView) itemView.findViewById(R.id.nameItem);
             price = (TextView) itemView.findViewById(R.id.priceItem);
         }
