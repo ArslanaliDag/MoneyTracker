@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            final ItemsDohodFragment fragment = new ItemsDohodFragment();
+            final ItemsRashodFragment fragment = new ItemsRashodFragment();
 //            Bundle args = new Bundle();
 //            args.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
 //            fragment.setArguments(args);
