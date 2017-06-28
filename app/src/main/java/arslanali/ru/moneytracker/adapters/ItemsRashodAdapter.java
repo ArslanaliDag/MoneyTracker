@@ -35,7 +35,7 @@ public class ItemsRashodAdapter extends RecyclerView.Adapter<ItemsRashodAdapter.
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rashod, null));
+        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, null));
     }
 
     @Override

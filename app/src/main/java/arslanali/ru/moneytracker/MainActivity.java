@@ -10,14 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
 import arslanali.ru.moneytracker.fragments.BalansFragment;
-import arslanali.ru.moneytracker.fragments.ItemsDohodFragment;
-import arslanali.ru.moneytracker.fragments.ItemsRashodFragment;
+import arslanali.ru.moneytracker.fragments.ItemsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-//    ItemsRashodFragment fragmentRashod = null;
-    // ItemsDohodFragment fragmentDohod = null;
-//    BalansFragment fragmentBalans = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items_rashod to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
@@ -53,17 +48,17 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    ItemsRashodFragment fragmentRashod = new ItemsRashodFragment();
+                    ItemsFragment fragmentRashod = new ItemsFragment();
                     // pass the parameter
                     Bundle argsRashod = new Bundle();
-                    argsRashod.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_EXPENSE);
+                    argsRashod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
                     fragmentRashod.setArguments(argsRashod);
                     return fragmentRashod;
                 case 1:
-                    ItemsRashodFragment fragmentDohod = new ItemsRashodFragment();
+                    ItemsFragment fragmentDohod = new ItemsFragment();
                     // pass the parameter
                     Bundle argsDohod = new Bundle();
-                    argsDohod.putString(ItemsRashodFragment.ARG_TYPE, Item.TYPE_INCOME);
+                    argsDohod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_INCOME);
                     fragmentDohod.setArguments(argsDohod);
                     return fragmentDohod;
                 case 2:
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
 // Example, use two fragments. Made for my practice
 //                case 0:
-//                    fragmentRashod = new ItemsRashodFragment();
+//                    fragmentRashod = new ItemsFragment();
 //                    return fragmentRashod;
 //                case 1:
 //                    fragmentDohod = new ItemsDohodFragment();
