@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import arslanali.ru.moneytracker.Item;
 import arslanali.ru.moneytracker.R;
 import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
 import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
@@ -32,12 +33,14 @@ public class ItemsFragment extends Fragment {
         // read, get incoming parameters
         type = getArguments().getString(ARG_TYPE);
 
-        if (type == "expense") {
+        // https://stackoverflow.com/questions/5425568/how-to-use-setarguments-and-getarguments-methods-in-fragments
+        if (type == Item.TYPE_EXPENSE) {
             // Init data rashod RecyclerView items
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(new ItemsRashodAdapter());
 
-        } else if (type == "income") {
+            // todo: use constant INCOME.
+        } else if (type == Item.TYPE_INCOME) {
             // Init data dohod RecyclerView items
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(new ItemsDohodAdapter());
