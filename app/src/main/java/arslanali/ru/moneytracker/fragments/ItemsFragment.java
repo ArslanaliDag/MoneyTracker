@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import arslanali.ru.moneytracker.LSApp;
+import arslanali.ru.moneytracker.api.LSApi;
 import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
 import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
@@ -17,6 +19,7 @@ public class ItemsFragment extends Fragment {
 
     public static final String ARG_TYPE = "type";
     private String type;
+    private LSApi api;
 
     @Nullable
     @Override
@@ -38,6 +41,8 @@ public class ItemsFragment extends Fragment {
             // Init data rashod RecyclerView items
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(new ItemsRashodAdapter());
+
+            api = ((LSApp) getActivity().getApplication()).api();
 
         } else if (type == Item.TYPE_INCOME) {
             // Init data dohod RecyclerView items

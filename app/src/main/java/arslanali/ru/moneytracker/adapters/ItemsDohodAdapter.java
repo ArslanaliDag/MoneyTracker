@@ -17,11 +17,11 @@ public class ItemsDohodAdapter extends RecyclerView.Adapter<ItemsDohodAdapter.It
 
     // add data in RW
     public ItemsDohodAdapter() {
-        items.add(new Item("Зарплата", 100000));
-        items.add(new Item("Пенсия", 15000));
-        items.add(new Item("Налоговые выплаты", 5000));
-        items.add(new Item("Аванс", 2000));
-        items.add(new Item("Отпускные", 30000));
+        items.add(new Item("Зарплата", 100000, Item.TYPE_INCOME));
+        items.add(new Item("Пенсия", 15000, Item.TYPE_INCOME));
+        items.add(new Item("Налоговые выплаты", 5000, Item.TYPE_INCOME));
+        items.add(new Item("Аванс", 2000, Item.TYPE_INCOME));
+        items.add(new Item("Отпускные", 30000, Item.TYPE_INCOME));
     }
 
     @Override
