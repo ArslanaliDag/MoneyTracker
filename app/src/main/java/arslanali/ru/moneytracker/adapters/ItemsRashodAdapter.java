@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import arslanali.ru.moneytracker.Item;
+import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
 
 public class ItemsRashodAdapter extends RecyclerView.Adapter<ItemsRashodAdapter.ItemViewHolder> {

@@ -1,4 +1,4 @@
-package arslanali.ru.moneytracker;
+package arslanali.ru.moneytracker.pojo;
 
 public class Item {
 

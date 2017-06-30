@@ -11,6 +11,7 @@ import android.view.Menu;
 
 import arslanali.ru.moneytracker.fragments.BalansFragment;
 import arslanali.ru.moneytracker.fragments.ItemsFragment;
+import arslanali.ru.moneytracker.pojo.Item;
 
 public class MainActivity extends AppCompatActivity {
 

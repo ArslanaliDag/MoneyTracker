@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import arslanali.ru.moneytracker.Item;
+import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
 import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
 import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
@@ -39,7 +39,6 @@ public class ItemsFragment extends Fragment {
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(new ItemsRashodAdapter());
 
-            // todo: use constant INCOME.
         } else if (type == Item.TYPE_INCOME) {
             // Init data dohod RecyclerView items
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
