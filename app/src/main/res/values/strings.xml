@@ -10,6 +10,7 @@
     <string name="incomes">Доходы</string>
     <string name="balance">Баланс</string>
     <string name="action_settings">Настройка</string>
+    <string name="errorLoadItems">Ошибка загрузки данных</string>
     <array name="main_pager_titles">
         <item>@string/expenses</item>
         <item>@string/incomes</item>

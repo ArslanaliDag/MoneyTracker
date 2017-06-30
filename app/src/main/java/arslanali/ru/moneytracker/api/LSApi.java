@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface LSApi {
 
-    //@Headers("Content-Type: application/json") // set header JSON
+    @Headers("Content-Type: application/json") // set header JSON
     @GET("getitems")
     Call<List<Item>> items(@Query("type") String type); // call pojo object
 }
