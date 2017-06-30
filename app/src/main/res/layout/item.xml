@@ -15,7 +15,7 @@
         tools:text="Текст для визуальной проверки как расширяется item при большом количестве текста"
         tools:ignore="HardcodedText" />
 
-    <!-- Test text use parameter tools:text="TEst text"-->
+    <!-- Test text use parameter tools:text="Test text"-->
     <TextView
         android:id="@+id/priceItem"
         style="@style/priceStyle"

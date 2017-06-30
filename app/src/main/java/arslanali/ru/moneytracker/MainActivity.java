@@ -11,6 +11,7 @@ import android.view.Menu;
 
 import arslanali.ru.moneytracker.fragments.BalansFragment;
 import arslanali.ru.moneytracker.fragments.ItemsFragment;
+import arslanali.ru.moneytracker.pojo.Item;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -64,17 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 case 2:
                     BalansFragment balansFragment = new BalansFragment();
                     return balansFragment;
-
-// Example, use two fragments. Made for my practice
-//                case 0:
-//                    fragmentRashod = new ItemsFragment();
-//                    return fragmentRashod;
-//                case 1:
-//                    fragmentDohod = new ItemsDohodFragment();
-//                    return fragmentDohod;
-//                case 2:
-//                    fragmentBalans = new BalansFragment();
-//                    return fragmentBalans;
             }
             return new Fragment();
         }
