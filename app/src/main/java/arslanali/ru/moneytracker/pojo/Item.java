@@ -6,14 +6,34 @@ public class Item {
     public static final String TYPE_EXPENSE = "expense";
     public static final String TYPE_INCOME = "income";
 
-    public final String name;
-    public final String type;
-    public final int price;
-    int id;
+    private String name;
+    private String type;
+    private int price;
+    private int id;
 
     public Item(String name, int price, String type) {
         this.name = name;
         this.price = price;
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
