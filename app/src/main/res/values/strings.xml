@@ -11,6 +11,7 @@
     <string name="balance">Баланс</string>
     <string name="action_settings">Настройка</string>
     <string name="errorLoadItems">Ошибка загрузки данных</string>
+    <string name="okLoadItems">Данные успешно загружены</string>
     <array name="main_pager_titles">
         <item>@string/expenses</item>
         <item>@string/incomes</item>

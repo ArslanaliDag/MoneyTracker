@@ -37,7 +37,7 @@ public class LSApp extends Application {
                 .client(client)
                 .build();
 
-        // Interface implementation LSApi, create items list
+        // Interface implementation LSApi, create getItems list
         api = retrofit.create(LSApi.class);
     }
 

@@ -33,8 +33,8 @@ public class ItemsDohodAdapter extends RecyclerView.Adapter<ItemsDohodAdapter.It
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         // Insert data in variable. Cashed data
         final Item item = items.get(position);
-        holder.name.setText(item.name);
-        holder.price.setText(String.valueOf(item.price));
+        holder.name.setText(item.getName());
+        holder.price.setText(String.valueOf(item.getPrice()));
     }
 
     @Override
