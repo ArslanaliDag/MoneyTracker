@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="textSize">20sp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="text_item">20sp</dimen>
+
+    <!--test dimens-->
     <dimen name="paddingLL">7dp</dimen>
     <dimen name="margin_l">16dp</dimen>
     <dimen name="textSizePlus">40sp</dimen>
-    <dimen name="namePadding">10dp</dimen>
-    <dimen name="textCardPlus">19sp</dimen>
-    <dimen name="editWidth">60dp</dimen>
-    <dimen name="margin_small">6dp</dimen>
-    <dimen name="textSizeName">20dp</dimen>
-    <dimen name="textSizePrice">25dp</dimen>
 </resources>

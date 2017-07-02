@@ -7,14 +7,12 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class New extends AppCompatActivity {
+public class AddItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new);
-        // set title in activity_new
-        setTitle(R.string.activity_new);
 
         final TextView add = (TextView) findViewById(R.id.add);
 
