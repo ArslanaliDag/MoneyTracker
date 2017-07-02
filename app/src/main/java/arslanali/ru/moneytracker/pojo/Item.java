@@ -1,6 +1,8 @@
 package arslanali.ru.moneytracker.pojo;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable{
 
     // this is POJO object
     public static final String TYPE_EXPENSE = "expense";
