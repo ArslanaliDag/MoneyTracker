@@ -22,10 +22,7 @@ import arslanali.ru.moneytracker.LSApp;
 import arslanali.ru.moneytracker.api.LSApi;
 import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
-import arslanali.ru.moneytracker.adapters.ItemsDohodAdapter;
 import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
-
-import static android.app.Activity.RESULT_OK;
 
 public class ItemsFragment extends Fragment {
 
@@ -76,17 +73,23 @@ public class ItemsFragment extends Fragment {
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
 
-            // load getItems in create, view screen
-            LoadItems();
+            // load expense getItems in create, view screen
+            LoadItems(type);
 
         } else if (Objects.equals(type, Item.TYPE_INCOME)) {
             // Init data dohod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-            items.setAdapter(new ItemsDohodAdapter());
+            items.setAdapter(rashodAdapter);
+
+            // Necessary to call our Application - LSApp
+            api = ((LSApp) getActivity().getApplication()).api();
+
+            // load income getItems in create, view screen
+            LoadItems(type);
         }
     }
 
-    private void LoadItems() {
+    private void LoadItems(final String payType) {
         // init Activity loader
         getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
@@ -96,7 +99,7 @@ public class ItemsFragment extends Fragment {
                     public List<Item> loadInBackground() {
                         try {
                             // execute GET request, getting items_fragment rashod
-                            return api.getItems(type).execute().body();
+                            return api.getItems(payType).execute().body();
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             return null;

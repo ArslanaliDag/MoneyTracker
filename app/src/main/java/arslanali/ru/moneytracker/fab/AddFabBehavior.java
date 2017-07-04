@@ -1,4 +1,4 @@
-package arslanali.ru.moneytracker;
+package arslanali.ru.moneytracker.fab;
 
 
 import android.content.Context;
@@ -9,9 +9,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-public class FAB extends FloatingActionButton.Behavior {
+public class AddFabBehavior extends FloatingActionButton.Behavior {
 
-    FAB(Context context, AttributeSet attrs) {
+    AddFabBehavior(Context context, AttributeSet attrs) {
         super();
     }
 
