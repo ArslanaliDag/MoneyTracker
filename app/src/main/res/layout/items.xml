@@ -10,4 +10,14 @@
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@mipmap/ic_plus"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_behavior="arslanali.ru.moneytracker.FAB" />
+
 </FrameLayout>

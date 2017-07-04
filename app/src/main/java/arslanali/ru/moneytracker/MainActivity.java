@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // add toolbar
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         final ViewPager pages = (ViewPager) findViewById(R.id.pages);
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     ItemsFragment fragmentRashod = new ItemsFragment();
                     // pass the parameter
                     Bundle argsRashod = new Bundle();
+                    // set type expense
                     argsRashod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
                     fragmentRashod.setArguments(argsRashod);
                     return fragmentRashod;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     ItemsFragment fragmentDohod = new ItemsFragment();
                     // pass the parameter
                     Bundle argsDohod = new Bundle();
+                    // set type expense
                     argsDohod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_INCOME);
                     fragmentDohod.setArguments(argsDohod);
                     return fragmentDohod;
