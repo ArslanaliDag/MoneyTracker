@@ -8,8 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,7 +29,7 @@ import arslanali.ru.moneytracker.LSApp;
 import arslanali.ru.moneytracker.api.LSApi;
 import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
-import arslanali.ru.moneytracker.adapters.ItemsRashodAdapter;
+import arslanali.ru.moneytracker.adapters.ItemsAdapter;
 
 public class ItemsFragment extends Fragment {
 
@@ -32,12 +39,40 @@ public class ItemsFragment extends Fragment {
     private static final int LOADER_REMOVE = 2;
 
     // include adapter
-    private ItemsRashodAdapter rashodAdapter = new ItemsRashodAdapter();
+    private ItemsAdapter itemsAdapter = new ItemsAdapter();
 
     public static final String ARG_TYPE = "type";
     private String type;
     private LSApi api;
     private FloatingActionButton fabAdd;
+    // Actions
+    private GestureDetector gestureDetector;
+    private ActionMode actionMode;
+    // Interaction with the system call back
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // set menu action mode
+//            actionMode.getMenuInflater().inflate(R.menu.action_mode, menu);
+            mode.getMenuInflater().inflate(R.menu.action_mode, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+
+        }
+    };
 
     @Nullable
     @Override
@@ -68,7 +103,35 @@ public class ItemsFragment extends Fragment {
         if (Objects.equals(type, Item.TYPE_EXPENSE)) {
             // Init data rashod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-            items.setAdapter(rashodAdapter);
+            items.setAdapter(itemsAdapter);
+            // catch long tab
+            gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+
+                @Override
+                public void onLongPress(MotionEvent motionEvent) {
+                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+                }
+
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    return super.onSingleTapConfirmed(e);
+                }
+            });
+            // Necessary for gestures, any touch to the screen
+            items.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return gestureDetector.onTouchEvent(motionEvent);
+                }
+            });
+
+//            items.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View view) {
+//                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+//                    return true;
+//                }
+//            });
 
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
@@ -79,7 +142,7 @@ public class ItemsFragment extends Fragment {
         } else if (Objects.equals(type, Item.TYPE_INCOME)) {
             // Init data dohod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-            items.setAdapter(rashodAdapter);
+            items.setAdapter(itemsAdapter);
 
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
@@ -114,8 +177,8 @@ public class ItemsFragment extends Fragment {
                 if (data == null) {
                     Toast.makeText(getContext(), R.string.errorLoadItems, Toast.LENGTH_LONG).show();
                 } else {
-                    rashodAdapter.clear();
-                    rashodAdapter.addAll(data); // insert data items_fragment in adapter and view user
+                    itemsAdapter.clear();
+                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
                     Toast.makeText(getContext(), R.string.okLoadItems, Toast.LENGTH_LONG).show();
                 }
             }

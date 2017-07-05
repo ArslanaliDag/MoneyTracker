@@ -12,11 +12,11 @@ import java.util.List;
 import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
 
-public class ItemsRashodAdapter extends RecyclerView.Adapter<ItemsRashodAdapter.ItemViewHolder> {
+public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
 
     // add data in RW - HardCode
-//    public ItemsRashodAdapter() {
+//    public ItemsAdapter() {
 //        getItems.add(new Item("Молоко", 35, Item.TYPE_EXPENSE));
 //        getItems.add(new Item("Зубная щетка", 150, Item.TYPE_EXPENSE));
 //        getItems.add(new Item("Сковородка Tefal с антипригарный покрытием", 500, Item.TYPE_EXPENSE));
