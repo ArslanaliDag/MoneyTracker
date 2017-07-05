@@ -1,6 +1,7 @@
 package arslanali.ru.moneytracker.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import arslanali.ru.moneytracker.R;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
+    SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     // add data in RW - HardCode
 //    public ItemsAdapter() {
@@ -48,6 +50,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         items.addAll(data);
         notifyDataSetChanged();
     }
+
+    // select item methods
+
 
     // Inner class. Speed scrolling
     class ItemViewHolder extends RecyclerView.ViewHolder {

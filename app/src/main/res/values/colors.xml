@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightYellow">#FCC418</color>
     <color name="colorDarkYellow">#E6AE1E</color>
+    <color name="colorItemSelector">#e67e22</color>
 
     <!--test colors in fragment balans-->
     <color name="colorCardPlus">#FFFFFF</color>
