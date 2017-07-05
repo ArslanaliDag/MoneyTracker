@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
@@ -53,7 +52,7 @@ public class ItemsFragment extends Fragment {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             // set menu action mode
-//            actionMode.getMenuInflater().inflate(R.menu.action_mode, menu);
+//            actionMode.getMenuInflater().inflate(R.menu.action_mode, menu); error
             mode.getMenuInflater().inflate(R.menu.action_mode, menu);
             return true;
         }
@@ -110,11 +109,16 @@ public class ItemsFragment extends Fragment {
                 @Override
                 public void onLongPress(MotionEvent motionEvent) {
                     actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+                    // find index selected item(find index selected view)
+                    toggleSelection(motionEvent, items);
                 }
 
                 @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-                    return super.onSingleTapConfirmed(e);
+                public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+                    // Select other items by clicking
+                    // find index selected item(find index selected view)
+                    toggleSelection(motionEvent, items);
+                    return super.onSingleTapConfirmed(motionEvent);
                 }
             });
             // Necessary for gestures, any touch to the screen
@@ -150,6 +154,10 @@ public class ItemsFragment extends Fragment {
             // load income getItems in create, view screen
             LoadItems(type);
         }
+    }
+
+    private void toggleSelection(MotionEvent e, RecyclerView items) {
+        itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
     }
 
     private void LoadItems(final String payType) {

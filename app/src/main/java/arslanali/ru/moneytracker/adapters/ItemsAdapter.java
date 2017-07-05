@@ -15,6 +15,7 @@ import arslanali.ru.moneytracker.R;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
     private final List<Item> items = new ArrayList<>();
+    // Simplified version HachMap in Java, optimized for android
     SparseBooleanArray selectedItems = new SparseBooleanArray();
 
     // add data in RW - HardCode
@@ -35,6 +36,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         final Item item = items.get(position);
         holder.name.setText(item.getName());
         holder.price.setText(String.valueOf(item.getPrice()));
+        // We say that item our active
+        holder.container.setActivated(selectedItems.get(position, false));
     }
 
     @Override
@@ -51,16 +54,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         notifyDataSetChanged();
     }
 
-    // select item methods
+    // Dedicated or not allocated items
+    public void toggleSelection(int position) {
+        if (selectedItems.get(position, false)) {
+            selectedItems.delete(position);
+        } else {
+            selectedItems.put(position, true);
+        }
+        // We inform RecyclerView that the elements have changed
+        notifyItemChanged(position);
+    }
 
 
     // Inner class. Speed scrolling
     class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView name, price;
+        private final View container; // RelativeLayout view container - item
 
         ItemViewHolder(View itemView) {
             super(itemView);
             // Without itemView.findViewById this parameter gives an error java.lang.NullPointerException
+            container = itemView.findViewById(R.id.item_container);
             name = (TextView) itemView.findViewById(R.id.nameItem);
             price = (TextView) itemView.findViewById(R.id.priceItem);
         }
