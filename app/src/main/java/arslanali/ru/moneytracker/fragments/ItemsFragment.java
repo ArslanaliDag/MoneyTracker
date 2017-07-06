@@ -69,7 +69,11 @@ public class ItemsFragment extends Fragment {
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-
+            // there no selected items, finish the actionMode
+            actionMode.finish();
+            actionMode = null;
+            fabAdd.setVisibility(View.VISIBLE);
+            itemsAdapter.clearSelections();
         }
     };
 
@@ -108,14 +112,22 @@ public class ItemsFragment extends Fragment {
 
                 @Override
                 public void onLongPress(MotionEvent motionEvent) {
-                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-                    // find index selected item(find index selected view)
-                    toggleSelection(motionEvent, items);
+
+                    boolean hasCheckedItems = itemsAdapter.getItemCount() > 0;//Check if any items are already selected or not
+
+                    if (hasCheckedItems && actionMode == null) {
+                        // there are some selected items, start the actionMode
+                        actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+
+                        // find index selected item(find index selected view)
+                        toggleSelection(motionEvent, items);
+
+                    }
                 }
 
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                    // Select other items by clicking
+                    // Select or unselect other items by clicking
                     // find index selected item(find index selected view)
                     toggleSelection(motionEvent, items);
                     return super.onSingleTapConfirmed(motionEvent);
@@ -128,14 +140,6 @@ public class ItemsFragment extends Fragment {
                     return gestureDetector.onTouchEvent(motionEvent);
                 }
             });
-
-//            items.setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View view) {
-//                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-//                    return true;
-//                }
-//            });
 
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
@@ -158,6 +162,10 @@ public class ItemsFragment extends Fragment {
 
     private void toggleSelection(MotionEvent e, RecyclerView items) {
         itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
+        // get selected item count
+        actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
+        // hide FAB in select items
+        fabAdd.setVisibility(View.GONE);
     }
 
     private void LoadItems(final String payType) {
