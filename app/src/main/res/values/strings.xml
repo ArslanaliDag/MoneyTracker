@@ -22,5 +22,10 @@
 
     <string name="errorLoadItems">Ошибка загрузки данных</string>
     <string name="okLoadItems">Данные успешно загружены</string>
+    <string name="confirm_remove">Удалить запись?</string>
+
+    <!--Button dialog delete items-->
+    <string name="ok">Да</string>
+    <string name="cancel">Отмена</string>
 
 </resources>

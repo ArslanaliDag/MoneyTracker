@@ -1,5 +1,6 @@
 package arslanali.ru.moneytracker.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,9 +9,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +48,7 @@ public class ItemsFragment extends Fragment {
     private String type;
     private LSApi api;
     private FloatingActionButton fabAdd;
+    private SwipeRefreshLayout refreshLayout;
     // Actions
     private GestureDetector gestureDetector;
     private ActionMode actionMode;
@@ -64,18 +69,51 @@ public class ItemsFragment extends Fragment {
 
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.menu_remove:
+                    new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle)
+                            .setTitle(R.string.app_name)
+                            .setMessage(R.string.confirm_remove)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    for (Integer selecedItemId : itemsAdapter.getSelectedItems())
+                                        removeSelectedItem(selecedItemId);
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, null)
+                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    // remove selections when clicked on cancellation
+                                    destroyActionMode();
+                                }
+                            })
+                            .show();
+                    return true;
+            }
             return false;
         }
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
-            // there no selected items, finish the actionMode
-            actionMode.finish();
-            actionMode = null;
-            fabAdd.setVisibility(View.VISIBLE);
-            itemsAdapter.clearSelections();
+            destroyActionMode();
         }
     };
+
+    // destroy, there no selected items, finish the actionMode
+    private void destroyActionMode() {
+        actionMode.finish();
+        actionMode = null;
+        fabAdd.setVisibility(View.VISIBLE);
+        itemsAdapter.clearSelections();
+    }
+
+    // remove selected item in server
+    private void removeSelectedItem(Integer itemId) {
+        Log.i("ID_ITEM", String.valueOf(itemId) + " на удаление.");
+    }
 
     @Nullable
     @Override
@@ -107,6 +145,18 @@ public class ItemsFragment extends Fragment {
             // Init data rashod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(itemsAdapter);
+
+            // refresh data
+            refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+            // set color in refresh
+            refreshLayout.setColorSchemeResources(R.color.dark1, R.color.dark2, R.color.dark3);
+            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadItems(type);
+                }
+            });
+
             // catch long tab
             gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
 
@@ -141,11 +191,12 @@ public class ItemsFragment extends Fragment {
                 }
             });
 
+
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
 
             // load expense getItems in create, view screen
-            LoadItems(type);
+            loadItems(type);
 
         } else if (Objects.equals(type, Item.TYPE_INCOME)) {
             // Init data dohod RecyclerView getItems
@@ -156,19 +207,22 @@ public class ItemsFragment extends Fragment {
             api = ((LSApp) getActivity().getApplication()).api();
 
             // load income getItems in create, view screen
-            LoadItems(type);
+            loadItems(type);
         }
     }
 
     private void toggleSelection(MotionEvent e, RecyclerView items) {
-        itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
-        // get selected item count
-        actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
-        // hide FAB in select items
-        fabAdd.setVisibility(View.GONE);
+        // without checking for a null, an error occurs NullPointerException
+        if (actionMode != null) {
+            // get selected item countl
+            itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
+            actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
+            // hide FAB in select items
+            fabAdd.setVisibility(View.GONE);
+        }
     }
 
-    private void LoadItems(final String payType) {
+    private void loadItems(final String payType) {
         // init Activity loader
         getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
@@ -191,11 +245,15 @@ public class ItemsFragment extends Fragment {
             public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
                 // comes the list items_fragment after completion
                 if (data == null) {
-                    Toast.makeText(getContext(), R.string.errorLoadItems, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), R.string.errorLoadItems, Toast.LENGTH_SHORT).show();
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
                 } else {
                     itemsAdapter.clear();
                     itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
-                    Toast.makeText(getContext(), R.string.okLoadItems, Toast.LENGTH_LONG).show();
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), R.string.okLoadItems, Toast.LENGTH_SHORT).show();
                 }
             }
 

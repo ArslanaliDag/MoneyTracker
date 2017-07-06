@@ -12,4 +12,10 @@
     <!--test colors in fragment balans-->
     <color name="colorCardPlus">#FFFFFF</color>
     <color name="colorItemSelected">#f5ecd0</color>
+
+
+    <!--colors refresh layout-->
+    <color name="dark1">#1ca498</color>
+    <color name="dark2">#1fbeb0</color>
+    <color name="dark3">#27decd</color>
 </resources>

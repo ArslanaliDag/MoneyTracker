@@ -72,10 +72,19 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return selectedItems.size();
     }
 
-    // Unselect from items, finish the actionMode
+    // unselect from items, finish the actionMode
     public void clearSelections() {
         selectedItems.clear();
         notifyDataSetChanged();
+    }
+
+    // selected items, return the selected items
+    public List<Integer> getSelectedItems() {
+        List<Integer> items = new ArrayList<>(selectedItems.size());
+        for (int i = 0; i < selectedItems.size(); i++) {
+            items.add(selectedItems.keyAt(i));
+        }
+        return items;
     }
 
     // Inner class. Speed scrolling
