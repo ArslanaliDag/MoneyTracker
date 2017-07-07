@@ -130,6 +130,11 @@ public class ItemsFragment extends Fragment {
         // read, get incoming parameters of main activity
         type = getArguments().getString(ARG_TYPE);
 
+        // refresh data
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+        // set color in refresh
+        refreshLayout.setColorSchemeResources(R.color.dark1, R.color.dark2, R.color.dark3);
+
         fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
         fabAdd.setOnClickListener(new FloatingActionButton.OnClickListener() {
             @Override
@@ -146,10 +151,6 @@ public class ItemsFragment extends Fragment {
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(itemsAdapter);
 
-            // refresh data
-            refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-            // set color in refresh
-            refreshLayout.setColorSchemeResources(R.color.dark1, R.color.dark2, R.color.dark3);
             refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
