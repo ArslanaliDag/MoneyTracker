@@ -169,10 +169,8 @@ public class ItemsFragment extends Fragment {
                     if (hasCheckedItems && actionMode == null) {
                         // there are some selected items, start the actionMode
                         actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-
                         // find index selected item(find index selected view)
                         toggleSelection(motionEvent, items);
-
                     }
                 }
 
@@ -191,7 +189,6 @@ public class ItemsFragment extends Fragment {
                     return gestureDetector.onTouchEvent(motionEvent);
                 }
             });
-
 
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).api();
@@ -217,7 +214,12 @@ public class ItemsFragment extends Fragment {
         if (actionMode != null) {
             // get selected item countl
             itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
-            actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
+            // If no records are selected, then go back
+            if (itemsAdapter.getSelectedItemCount() == 0) {
+                actionMode.finish();
+            } else {
+                actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
+            }
             // hide FAB in select items
             fabAdd.setVisibility(View.GONE);
         }
