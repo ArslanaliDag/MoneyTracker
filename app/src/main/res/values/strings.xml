@@ -6,17 +6,26 @@
     <string name="price_hint">0 &#x584;</string>
     <string name="ruble">\u00A0 \u20BD</string>
 
-    <!-- Array strings, tab header name-->
+    <!-- Array strings, tab header name -->
     <string name="expenses">Расходы</string>
     <string name="incomes">Доходы</string>
     <string name="balance">Баланс</string>
-    <string name="action_settings">Настройка</string>
-    <string name="errorLoadItems">Ошибка загрузки данных</string>
-    <string name="okLoadItems">Данные успешно загружены</string>
     <array name="main_pager_titles">
         <item>@string/expenses</item>
         <item>@string/incomes</item>
         <item>@string/balance</item>
     </array>
+
+    <!-- Menu items -->
+    <string name="menu_settings">Настройка</string>
+    <string name="menu_delete">Удалить</string>
+
+    <string name="errorLoadItems">Ошибка загрузки данных</string>
+    <string name="okLoadItems">Данные успешно загружены</string>
+    <string name="confirm_remove">Удалить запись?</string>
+
+    <!--Button dialog delete items-->
+    <string name="ok">Да</string>
+    <string name="cancel">Отмена</string>
 
 </resources>
