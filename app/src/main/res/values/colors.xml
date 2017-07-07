@@ -19,6 +19,6 @@
 
     <!--colors refresh layout-->
     <color name="dark1">#1ca498</color>
-    <color name="dark2">#1fbeb0</color>
-    <color name="dark3">#27decd</color>
+    <color name="dark2">#1ca498</color>
+    <color name="dark3">#1ca498</color>
 </resources>
