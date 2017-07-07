@@ -7,7 +7,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightYellow">#FCC418</color>
     <color name="colorDarkYellow">#E6AE1E</color>
-    <color name="colorItemSelector">#e67e22</color>
+
+    <!--color selectors in design-->
+    <color name="colorItemNameSelector">#e67e22</color>
+    <color name="colorItemPriceSelector">#bf6e13</color>
 
     <!--test colors in fragment balans-->
     <color name="colorCardPlus">#FFFFFF</color>

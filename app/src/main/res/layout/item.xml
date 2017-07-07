@@ -13,7 +13,7 @@
             android:id="@+id/item_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/item_selector">
+            android:background="@drawable/item_selector_name">
 
             <TextView
                 android:id="@+id/nameItem"
@@ -28,10 +28,11 @@
                 android:layout_alignBottom="@+id/nameItem"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:background="@color/colorDarkYellow"
+                android:background="@drawable/item_selector_price"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
                 tools:text="55 \u20bd" />
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
