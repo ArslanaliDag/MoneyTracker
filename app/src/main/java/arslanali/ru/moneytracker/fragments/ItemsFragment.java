@@ -191,7 +191,7 @@ public class ItemsFragment extends Fragment {
             });
 
             // Necessary to call our Application - LSApp
-            api = ((LSApp) getActivity().getApplication()).api();
+            api = ((LSApp) getActivity().getApplication()).initApi();
 
             // load expense getItems in create, view screen
             loadItems(type);
@@ -202,7 +202,7 @@ public class ItemsFragment extends Fragment {
             items.setAdapter(itemsAdapter);
 
             // Necessary to call our Application - LSApp
-            api = ((LSApp) getActivity().getApplication()).api();
+            api = ((LSApp) getActivity().getApplication()).initApi();
 
             // load income getItems in create, view screen
             loadItems(type);
@@ -216,6 +216,7 @@ public class ItemsFragment extends Fragment {
             itemsAdapter.toggleSelection(items.getChildLayoutPosition(items.findChildViewUnder(e.getX(), e.getY())));
             // If no records are selected, then go back
             if (itemsAdapter.getSelectedItemCount() == 0) {
+//                fabAdd.setVisibility(View.VISIBLE);
                 actionMode.finish();
             } else {
                 actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");

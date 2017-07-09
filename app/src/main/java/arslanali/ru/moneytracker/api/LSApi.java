@@ -2,15 +2,19 @@ package arslanali.ru.moneytracker.api;
 
 import java.util.List;
 
+import arslanali.ru.moneytracker.pojo.AuthResult;
 import arslanali.ru.moneytracker.pojo.Item;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface LSApi {
 
     @Headers("Content-Type: application/json") // set header JSON
+
+/* API in my test ser server: http://arslanali.getsandbox.com/
 
     // get all items
     @GET("items/get")
@@ -23,4 +27,13 @@ public interface LSApi {
     Call<List<Item>> addItem(@Query("name") String name,
                              @Query("price") int price,
                              @Query("type") String type);
+*/
+
+    // get all items
+    @GET("items")
+    Call<List<Item>> getItems(@Query("type") String type);
+
+    // auth in server
+    @GET("auth")
+    Call<AuthResult> getAuth(@Query("social_user_id") String socialUserId);
 }

@@ -33,13 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        startActivity(new Intent(this, AuthActivity.class));
-               super.onResume();
-//               if (!((LSApp) getApplication()).isLoggedIn())
-//                        startActivity(new Intent(this, AuthActivity.class));
-//               else {
-//                   }
-            }
+        super.onResume();
+        if (!((LSApp) getApplication()).isLoggedIn()) {
+            startActivity(new Intent(this, AuthActivity.class));
+        } else {
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -30,5 +30,6 @@
 
     <!--Auth-->
     <string name="welcomeText">Ваш незаменимый помощник \n в управлении бюджетом</string>
+    <string name="errorAuth">Ошибка</string>
 
 </resources>
