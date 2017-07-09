@@ -1,6 +1,5 @@
 package arslanali.ru.moneytracker.fab;
 
-
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +13,6 @@ public class AddFabBehavior extends FloatingActionButton.Behavior {
     AddFabBehavior(Context context, AttributeSet attrs) {
         super();
     }
-
 
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout,

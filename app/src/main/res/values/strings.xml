@@ -28,4 +28,7 @@
     <string name="ok">Да</string>
     <string name="cancel">Отмена</string>
 
+    <!--Auth-->
+    <string name="welcomeText">Ваш незаменимый помощник \n в управлении бюджетом</string>
+
 </resources>

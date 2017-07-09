@@ -1,5 +1,6 @@
 package arslanali.ru.moneytracker;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -29,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
         pages.setAdapter(new MainPagerAdapter());
         tabs.setupWithViewPager(pages);
     }
+
+    @Override
+    protected void onResume() {
+        startActivity(new Intent(this, AuthActivity.class));
+               super.onResume();
+//               if (!((LSApp) getApplication()).isLoggedIn())
+//                        startActivity(new Intent(this, AuthActivity.class));
+//               else {
+//                   }
+            }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

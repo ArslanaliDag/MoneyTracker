@@ -28,6 +28,9 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
 
+    // google auth(all classes for working with authentication)
+    compile 'com.google.android.gms:play-services-auth:11.0.0'
+
     // internet and json libraries
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
@@ -39,3 +42,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 }
+
+// google services(need insert to footer this in this document)
+apply plugin: 'com.google.gms.google-services'
