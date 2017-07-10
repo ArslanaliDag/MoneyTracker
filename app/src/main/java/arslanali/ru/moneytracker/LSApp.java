@@ -1,7 +1,6 @@
 package arslanali.ru.moneytracker;
 
 import android.app.Application;
-import android.app.DownloadManager;
 import android.text.TextUtils;
 
 import com.google.gson.FieldNamingPolicy;
@@ -9,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import arslanali.ru.moneytracker.api.LSApi;
 import okhttp3.HttpUrl;

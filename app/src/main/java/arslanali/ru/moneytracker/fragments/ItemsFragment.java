@@ -29,17 +29,17 @@ import java.util.Objects;
 
 import arslanali.ru.moneytracker.AddItemActivity;
 import arslanali.ru.moneytracker.LSApp;
-import arslanali.ru.moneytracker.api.LSApi;
-import arslanali.ru.moneytracker.pojo.Item;
 import arslanali.ru.moneytracker.R;
 import arslanali.ru.moneytracker.adapters.ItemsAdapter;
+import arslanali.ru.moneytracker.api.LSApi;
+import arslanali.ru.moneytracker.pojo.Item;
 
 public class ItemsFragment extends Fragment {
 
     // loader state
     private static final int LOADER_ITEMS = 0;
     private static final int LOADER_ADD = 1;
-    private static final int LOADER_REMOVE = 2;
+    private static final int LOADER_DELETE = 2;
 
     // include adapter
     private ItemsAdapter itemsAdapter = new ItemsAdapter();
@@ -268,13 +268,100 @@ public class ItemsFragment extends Fragment {
         }).forceLoad();
     }
 
+    // add item
+    private void addItem(final int price, final String name, final String type) {
+        // init Activity loader
+        getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+            @Override
+            public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<List<Item>>(getContext()) {
+                    @Override
+                    public List<Item> loadInBackground() {
+                        try {
+                            // execute POST request
+                            return api.addItem(price, name, type).execute().body();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
+                // comes the list items_fragment after completion
+                if (data == null) {
+                    Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    itemsAdapter.clear();
+                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), R.string.okAddItem, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<List<Item>> loader) {
+
+            }
+        }).forceLoad();
+    }
+
+    // delete item
+    private void deleteItem(final int id) {
+        // init Activity loader
+        getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+            @Override
+            public Loader<List<Item>> onCreateLoader(final int id, Bundle args) {
+                return new AsyncTaskLoader<List<Item>>(getContext()) {
+                    @Override
+                    public List<Item> loadInBackground() {
+                        try {
+                            // execute POST request
+                            return api.deleteItem(id).execute().body();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
+                // comes the list items_fragment after completion
+                if (data == null) {
+                    Toast.makeText(getContext(), R.string.errorDeleteItem, Toast.LENGTH_SHORT).show();
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    itemsAdapter.clear();
+                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<List<Item>> loader) {
+
+            }
+        }).forceLoad();
+    }
+
+    // getting user added data in AddItemActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == AddItemActivity.RC_ADD_ITEM) {
             Item item = (Item) data.getSerializableExtra(AddItemActivity.RESULT_ITEM);
-            Toast.makeText(getContext(), String.valueOf(item.getPrice()), Toast.LENGTH_LONG).show();
+            addItem(item.getPrice(), item.getName(), item.getType());
         }
     }
 }

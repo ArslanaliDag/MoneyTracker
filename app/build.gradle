@@ -43,5 +43,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-// google services(need insert to footer this in this document)
+// google services(need insert to footer in this document)
 apply plugin: 'com.google.gms.google-services'

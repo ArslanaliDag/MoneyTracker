@@ -39,8 +39,11 @@ public interface LSApi {
 
     // add item
     @POST("items/add")
-    // http://arslanali.getsandbox.com/items/add - query
     Call<List<Item>> addItem(@Query("price") int price,
                              @Query("name") String name,
                              @Query("type") String type);
+
+    // delete item
+    @POST("items/remove")
+    Call<List<Item>> deleteItem(@Query("id") int idItem);
 }
