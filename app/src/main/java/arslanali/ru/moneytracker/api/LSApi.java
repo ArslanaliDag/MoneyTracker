@@ -29,11 +29,18 @@ public interface LSApi {
                              @Query("type") String type);
 */
 
+    // auth in server
+    @GET("auth")
+    Call<AuthResult> getAuth(@Query("social_user_id") String socialUserId);
+
     // get all items
     @GET("items")
     Call<List<Item>> getItems(@Query("type") String type);
 
-    // auth in server
-    @GET("auth")
-    Call<AuthResult> getAuth(@Query("social_user_id") String socialUserId);
+    // add item
+    @POST("items/add")
+    // http://arslanali.getsandbox.com/items/add - query
+    Call<List<Item>> addItem(@Query("price") int price,
+                             @Query("name") String name,
+                             @Query("type") String type);
 }

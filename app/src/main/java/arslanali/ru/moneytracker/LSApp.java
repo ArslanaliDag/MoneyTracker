@@ -1,14 +1,22 @@
 package arslanali.ru.moneytracker;
 
 import android.app.Application;
+import android.app.DownloadManager;
 import android.text.TextUtils;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+
 import arslanali.ru.moneytracker.api.LSApi;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -32,6 +40,7 @@ public class LSApp extends Application {
                 .addInterceptor(new HttpLoggingInterceptor().setLevel(BuildConfig.DEBUG ?
                         HttpLoggingInterceptor.Level.HEADERS :
                         HttpLoggingInterceptor.Level.NONE))
+                .addInterceptor(new AuthInterseptor())
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -62,5 +71,16 @@ public class LSApp extends Application {
 
     public boolean isLoggedIn() {
         return !TextUtils.isEmpty(getToken());
+    }
+
+    // automatically send a token in the request to the server
+    // without entering in the parameter LSApi (GET)
+    private class AuthInterseptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request originalRequest = chain.request();
+            HttpUrl url = originalRequest.url().newBuilder().addQueryParameter("auth-token", getToken()).build();
+            return chain.proceed(originalRequest.newBuilder().url(url).build());
+        }
     }
 }
