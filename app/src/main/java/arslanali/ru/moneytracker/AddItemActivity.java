@@ -2,7 +2,6 @@ package arslanali.ru.moneytracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +37,7 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                 if (isEmpty(name)) {
                     add.setEnabled(false);
                 } else {
@@ -71,7 +71,6 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -81,8 +80,8 @@ public class AddItemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent result = new Intent();
                 // // TODO: 03.07.2017 Process input of null values
-                result.putExtra(RESULT_ITEM, new Item(name.getText().toString(),
-                        Integer.parseInt(ruble.getText().toString()), type));
+                result.putExtra(RESULT_ITEM, new Item(Integer.parseInt(ruble.getText().toString()),
+                        name.getText().toString(), type));
                 setResult(RESULT_OK, result); // send the result to the called fragment
                 finish();
             }

@@ -5,6 +5,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_large">16dp</dimen>
     <dimen name="text_item">20sp</dimen>
+    <dimen name="logoMargin">10dp</dimen>
 
     <!--test dimens-->
     <dimen name="paddingLL">7dp</dimen>

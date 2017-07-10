@@ -20,12 +20,26 @@
     <string name="menu_settings">Настройка</string>
     <string name="menu_delete">Удалить</string>
 
+    <!--load data-->
     <string name="errorLoadItems">Ошибка загрузки данных</string>
     <string name="okLoadItems">Данные успешно загружены</string>
+
+    <!--add data-->
+    <string name="errorAddItem">Ошибка добавления данных</string>
+    <string name="okAddItem">Данные успешно добавлены</string>
+
+    <!--delete item-->
+    <string name="errorDeleteItem">Ошибка удаления данных</string>
+    <string name="okDeleteItem">Данные успешно удалены</string>
+
     <string name="confirm_remove">Удалить запись?</string>
 
     <!--Button dialog delete items-->
     <string name="ok">Да</string>
     <string name="cancel">Отмена</string>
+
+    <!--Auth-->
+    <string name="welcomeText">Ваш незаменимый помощник\n в управлении бюджетом</string>
+    <string name="errorAuth">Ошибка</string>
 
 </resources>

@@ -2,7 +2,7 @@ package arslanali.ru.moneytracker.pojo;
 
 import java.io.Serializable;
 
-public class Item implements Serializable{
+public class Item implements Serializable {
 
     // this is POJO object
     public static final String TYPE_EXPENSE = "expense";
@@ -13,9 +13,9 @@ public class Item implements Serializable{
     private int price;
     private int id;
 
-    public Item(String name, int price, String type) {
-        this.name = name;
+    public Item(int price, String name, String type) {
         this.price = price;
+        this.name = name;
         this.type = type;
     }
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "584606647291",
+    "project_id": "arslanali-moneytracker"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584606647291:android:94cb1c8dff20c794",
+        "android_client_info": {
+          "package_name": "arslanali.ru.moneytracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584606647291-1mr4u1ben12taosc1vduqij6q457b8bu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "arslanali.ru.moneytracker",
+            "certificate_hash": "bc4fde5de64c3772d3d0ac360433c5a5bebb02d6"
+          }
+        },
+        {
+          "client_id": "584606647291-qt1fg2vm7tc4hb40v160vfke07742ou8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8IDi9jnxjPJiILcfZfpb1XxhSJxdIKBA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
