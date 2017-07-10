@@ -16,28 +16,40 @@ import arslanali.ru.moneytracker.pojo.Item;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TabLayout tabs;
+    private ViewPager pages;
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // add toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        final ViewPager pages = (ViewPager) findViewById(R.id.pages);
-        pages.setAdapter(new MainPagerAdapter());
-        tabs.setupWithViewPager(pages);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tabs = (TabLayout) findViewById(R.id.tabs);
+        pages = (ViewPager) findViewById(R.id.pages);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (!((LSApp) getApplication()).isLoggedIn()) {
+            // not init UI
             startActivity(new Intent(this, AuthActivity.class));
         } else {
+            // init UI
+            initUI();
         }
+    }
+
+    // init user interface
+    private void initUI() {
+        if (pages.getAdapter() != null)
+            return;
+        setSupportActionBar(toolbar);
+        pages.setAdapter(new MainPagerAdapter());
+        tabs.setupWithViewPager(pages);
+
     }
 
     @Override
