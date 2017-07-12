@@ -8,7 +8,7 @@
     <color name="colorLightYellow">#FCC418</color>
     <color name="colorDarkYellow">#E6AE1E</color>
 
-    <!--color selectors in design-->
+    <!--selectors in design-->
     <color name="colorItemNameSelector">#e67e22</color>
     <color name="colorItemPriceSelector">#bf6e13</color>
 
@@ -17,8 +17,14 @@
     <color name="colorItemSelected">#f5ecd0</color>
 
 
-    <!--colors refresh layout-->
+    <!--refresh layout-->
     <color name="dark1">#1ca498</color>
     <color name="dark2">#1ca498</color>
     <color name="dark3">#1ca498</color>
+
+    <!--diagram-->
+    <color name="colorItem">#fcc31e</color>
+    <color name="colorExpense">#f76c41</color>
+    <color name="colorPrimaryBright">#3ab7ae</color>
+    <color name="colorComment">#95989a</color>
 </resources>

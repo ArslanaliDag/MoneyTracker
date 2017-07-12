@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
-import arslanali.ru.moneytracker.fragments.BalansFragment;
+import arslanali.ru.moneytracker.fragments.BalanceFragment;
 import arslanali.ru.moneytracker.fragments.ItemsFragment;
 import arslanali.ru.moneytracker.pojo.Item;
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     fragmentDohod.setArguments(argsDohod);
                     return fragmentDohod;
                 case 2:
-                    return new BalansFragment();
+                    return new BalanceFragment();
             }
             return new Fragment();
         }

@@ -42,4 +42,10 @@
     <string name="welcomeText">Ваш незаменимый помощник\n в управлении бюджетом</string>
     <string name="errorAuth">Ошибка</string>
 
+    <!--Diagram-->
+    <string name="your_balance">ваш баланс</string>
+    <string name="expense">расход</string>
+    <string name="income">доход</string>
+    <string name="price">%1$d \u20bd</string>
+
 </resources>
