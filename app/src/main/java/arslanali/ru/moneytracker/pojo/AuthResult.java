@@ -14,8 +14,4 @@ public class AuthResult extends Result {
     public String getAuthToken() {
         return authToken;
     }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
 }

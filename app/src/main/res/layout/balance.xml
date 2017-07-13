@@ -76,18 +76,11 @@
         android:textSize="@dimen/text_medium"
         app:layout_widthPercent="50%" />
 
-    <arslanali.ru.moneytracker.diagram.DiagramView.DiagramView
+    <arslanali.ru.moneytracker.diagram.DiagramView
         android:id="@+id/diagram"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/expense_caption"
         android:layout_margin="20dp" />
 
-
-    <!---->
-    <!--android:id="@+id/diagram"-->
-    <!--android:layout_margin="20dp"-->
-    <!--android:layout_below="@+id/expense_caption"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"/>-->
 </android.support.percent.PercentRelativeLayout>

@@ -24,8 +24,9 @@ public class DiagramView extends View {
         expensePaint.setColor(getResources().getColor(R.color.colorExpense));
         incomePaint.setColor(getResources().getColor(R.color.colorItem));
 
+        // in view mode
         if (isInEditMode()) {
-            expense = 35000L;
+            expense = 15000L;
             income = 45000;
         }
     }

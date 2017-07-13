@@ -47,5 +47,6 @@
     <string name="expense">расход</string>
     <string name="income">доход</string>
     <string name="price">%1$d \u20bd</string>
+    <string name="errorDiagram">Ошибка при загрузке диаграммы</string>
 
 </resources>
