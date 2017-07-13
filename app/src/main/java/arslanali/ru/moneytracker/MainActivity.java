@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         pages.setAdapter(new MainPagerAdapter());
         tabs.setupWithViewPager(pages);
-
     }
 
     @Override
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class MainPagerAdapter extends FragmentPagerAdapter {
         private final String[] titles;
+        private final String[] types = {Item.TYPE_EXPENSE, Item.TYPE_INCOME};
 
         MainPagerAdapter() {
             super(getSupportFragmentManager());
@@ -69,27 +69,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+
             switch (position) {
                 case 0:
-                    ItemsFragment fragmentRashod = new ItemsFragment();
-                    // pass the parameter
-                    Bundle argsRashod = new Bundle();
-                    // set type expense
-                    argsRashod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
-                    fragmentRashod.setArguments(argsRashod);
-                    return fragmentRashod;
                 case 1:
-                    ItemsFragment fragmentDohod = new ItemsFragment();
-                    // pass the parameter
-                    Bundle argsDohod = new Bundle();
-                    // set type expense
-                    argsDohod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_INCOME);
-                    fragmentDohod.setArguments(argsDohod);
-                    return fragmentDohod;
+                    ItemsFragment fragment = new ItemsFragment();
+                    Bundle args = new Bundle();
+                    // first TYPE_EXPENSE second TYPE_INCOME type from array types
+                    args.putString(ItemsFragment.ARG_TYPE, types[position]);
+                    fragment.setArguments(args);
+                    return fragment;
                 case 2:
                     return new BalanceFragment();
+                default:
+                    return null;
             }
-            return new Fragment();
         }
 
         @Override
@@ -102,4 +96,48 @@ public class MainActivity extends AppCompatActivity {
             return titles.length;
         }
     }
+
+//    private class MainPagerAdapter extends FragmentPagerAdapter {
+//        private final String[] titles;
+//
+//        MainPagerAdapter() {
+//            super(getSupportFragmentManager());
+//            titles = getResources().getStringArray(R.array.main_pager_titles);
+//        }
+//
+//        @Override
+//        public Fragment getItem(int position) {
+//            switch (position) {
+//                case 0:
+//                    ItemsFragment fragmentRashod = new ItemsFragment();
+//                    // pass the parameter
+//                    Bundle argsRashod = new Bundle();
+//                    // set type expense
+//                    argsRashod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_EXPENSE);
+//                    fragmentRashod.setArguments(argsRashod);
+//                    return fragmentRashod;
+//                case 1:
+//                    ItemsFragment fragmentDohod = new ItemsFragment();
+//                    // pass the parameter
+//                    Bundle argsDohod = new Bundle();
+//                    // set type expense
+//                    argsDohod.putString(ItemsFragment.ARG_TYPE, Item.TYPE_INCOME);
+//                    fragmentDohod.setArguments(argsDohod);
+//                    return fragmentDohod;
+//                case 2:
+//                    return new BalanceFragment();
+//            }
+//            return new Fragment();
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return titles[position];
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return titles.length;
+//        }
+//    }
 }
