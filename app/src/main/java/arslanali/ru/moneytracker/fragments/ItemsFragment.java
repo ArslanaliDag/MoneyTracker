@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -78,8 +79,8 @@ public class ItemsFragment extends Fragment {
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
-                                    for (Integer selecedItemId : itemsAdapter.getSelectedItems())
-                                        removeSelectedItem(selecedItemId);
+                                    for (Integer selectedItemId : itemsAdapter.getSelectedItems())
+                                        delItem(selectedItemId);
                                 }
                             })
                             .setNegativeButton(R.string.cancel, null)
@@ -108,11 +109,6 @@ public class ItemsFragment extends Fragment {
         actionMode = null;
         fabAdd.setVisibility(View.VISIBLE);
         itemsAdapter.clearSelections();
-    }
-
-    // remove selected item in server
-    private void removeSelectedItem(Integer itemId) {
-        Log.i("ID_ITEM", String.valueOf(itemId) + " на удаление.");
     }
 
     @Nullable
@@ -200,6 +196,13 @@ public class ItemsFragment extends Fragment {
             // Init data dohod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(itemsAdapter);
+
+            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    loadItems(type);
+                }
+            });
 
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).initApi();
@@ -292,7 +295,7 @@ public class ItemsFragment extends Fragment {
             public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
                 // comes the list items_fragment after completion
                 if (data == null) {
-                    Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
                     // hide refresh layout
                     refreshLayout.setRefreshing(false);
                 } else {
@@ -312,7 +315,7 @@ public class ItemsFragment extends Fragment {
     }
 
     // delete item
-    private void deleteItem(final int id) {
+    private void delItem(final Integer idItem) {
         // init Activity loader
         getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
@@ -321,12 +324,14 @@ public class ItemsFragment extends Fragment {
                     @Override
                     public List<Item> loadInBackground() {
                         try {
-                            // execute POST request
-                            return api.deleteItem(id).execute().body();
+                            //execute POST request
+                             api.deleteItem(idItem).execute().body();
+                            //Log.i("ID_ITEM", String.valueOf(idItem) + " на удаление.");
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             return null;
                         }
+                        return null;
                     }
                 };
             }

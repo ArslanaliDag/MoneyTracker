@@ -37,6 +37,9 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
     compile 'com.google.code.gson:gson:2.8.0'
 
+    // specific layout(example: for my diagram)
+    compile 'com.android.support:percent:25.3.1'
+
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

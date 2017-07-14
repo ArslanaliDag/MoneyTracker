@@ -3,6 +3,7 @@ package arslanali.ru.moneytracker.api;
 import java.util.List;
 
 import arslanali.ru.moneytracker.pojo.AuthResult;
+import arslanali.ru.moneytracker.pojo.BalanceResult;
 import arslanali.ru.moneytracker.pojo.Item;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -46,4 +47,8 @@ public interface LSApi {
     // delete item
     @POST("items/remove")
     Call<List<Item>> deleteItem(@Query("id") int idItem);
+
+    // get balance and view in my diagram
+    @GET("balance")
+    Call<BalanceResult> getBalance();
 }
