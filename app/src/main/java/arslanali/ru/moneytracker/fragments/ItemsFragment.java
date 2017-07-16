@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,9 +49,11 @@ public class ItemsFragment extends Fragment {
     private LSApi api;
     private FloatingActionButton fabAdd;
     private SwipeRefreshLayout refreshLayout;
+
     // Actions
     private GestureDetector gestureDetector;
     private ActionMode actionMode;
+
     // Interaction with the system call back
     private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
         @Override
@@ -79,8 +80,9 @@ public class ItemsFragment extends Fragment {
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
-                                    for (Integer selectedItemId : itemsAdapter.getSelectedItems())
-                                        delItem(selectedItemId);
+                                    for (int i = itemsAdapter.getSelectedItems().size() - 1; i >= 0; i--) {
+                                        removeItem(itemsAdapter.remove(itemsAdapter.getSelectedItems().get(i)));
+                                    }
                                 }
                             })
                             .setNegativeButton(R.string.cancel, null)
@@ -193,6 +195,7 @@ public class ItemsFragment extends Fragment {
             loadItems(type);
 
         } else if (Objects.equals(type, Item.TYPE_INCOME)) {
+
             // Init data dohod RecyclerView getItems
             final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
             items.setAdapter(itemsAdapter);
@@ -204,10 +207,42 @@ public class ItemsFragment extends Fragment {
                 }
             });
 
+            // catch long tab
+            gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+
+                @Override
+                public void onLongPress(MotionEvent motionEvent) {
+
+                    boolean hasCheckedItems = itemsAdapter.getItemCount() > 0;//Check if any items are already selected or not
+
+                    if (hasCheckedItems && actionMode == null) {
+                        // there are some selected items, start the actionMode
+                        actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+                        // find index selected item(find index selected view)
+                        toggleSelection(motionEvent, items);
+                    }
+                }
+
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+                    // Select or unselect other items by clicking
+                    // find index selected item(find index selected view)
+                    toggleSelection(motionEvent, items);
+                    return super.onSingleTapConfirmed(motionEvent);
+                }
+            });
+            // Necessary for gestures, any touch to the screen
+            items.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    return gestureDetector.onTouchEvent(motionEvent);
+                }
+            });
+
             // Necessary to call our Application - LSApp
             api = ((LSApp) getActivity().getApplication()).initApi();
 
-            // load income getItems in create, view screen
+            // load expense getItems in create, view screen
             loadItems(type);
         }
     }
@@ -315,7 +350,7 @@ public class ItemsFragment extends Fragment {
     }
 
     // delete item
-    private void delItem(final Integer idItem) {
+    private void removeItem(final Item item) {
         // init Activity loader
         getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
@@ -325,7 +360,7 @@ public class ItemsFragment extends Fragment {
                     public List<Item> loadInBackground() {
                         try {
                             //execute POST request
-                             api.deleteItem(idItem).execute().body();
+                            api.removeItem(item.getId()).execute().body();
                             //Log.i("ID_ITEM", String.valueOf(idItem) + " на удаление.");
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -344,11 +379,11 @@ public class ItemsFragment extends Fragment {
                     // hide refresh layout
                     refreshLayout.setRefreshing(false);
                 } else {
+                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
                     itemsAdapter.clear();
                     itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
                     // hide refresh layout
                     refreshLayout.setRefreshing(false);
-                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -51,10 +51,6 @@ public class Item implements Serializable {
         return price;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
     public String getName() {
         return name;
     }
@@ -65,26 +61,6 @@ public class Item implements Serializable {
 
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Item(int price, String name, String type) {

@@ -20,13 +20,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     // Simplified version HachMap in Java, optimized for android
     SparseBooleanArray selectedItems = new SparseBooleanArray();
 
-    // add data in RW - HardCode
-//    public ItemsAdapter() {
-//        getItems.add(new Item("Молоко", 35, Item.TYPE_EXPENSE));
-//        getItems.add(new Item("Зубная щетка", 150, Item.TYPE_EXPENSE));
-//        getItems.add(new Item("Сковородка Tefal с антипригарный покрытием", 500, Item.TYPE_EXPENSE));
-//    }
-
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item, null));
@@ -85,6 +78,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             items.add(selectedItems.keyAt(i));
         }
         return items;
+    }
+
+   // remove selected items
+   public Item remove(int pos) {
+        final Item item = items.remove(pos);
+        notifyItemRemoved(pos);
+        return item;
     }
 
     // Inner class. Speed scrolling
