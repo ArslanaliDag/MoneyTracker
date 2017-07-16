@@ -33,6 +33,8 @@ import arslanali.ru.moneytracker.R;
 import arslanali.ru.moneytracker.adapters.ItemsAdapter;
 import arslanali.ru.moneytracker.api.LSApi;
 import arslanali.ru.moneytracker.pojo.Item;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ItemsFragment extends Fragment {
 
@@ -81,8 +83,9 @@ public class ItemsFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     for (int i = itemsAdapter.getSelectedItems().size() - 1; i >= 0; i--) {
-                                        removeItem(itemsAdapter.remove(itemsAdapter.getSelectedItems().get(i)));
+                                        removeSelectedItem(itemsAdapter.remove(itemsAdapter.getSelectedItems().get(i)));
                                     }
+                                    itemsAdapter.notifyDataSetChanged();
                                 }
                             })
                             .setNegativeButton(R.string.cancel, null)
@@ -104,6 +107,27 @@ public class ItemsFragment extends Fragment {
             destroyActionMode();
         }
     };
+
+    private void removeSelectedItem(final Item item) {
+
+        Call<List<Item>> call = api.removeItem(item.getId());
+        call.enqueue(new Callback<List<Item>>() {
+            @Override
+            public void onResponse(Call<List<Item>> call, retrofit2.Response<List<Item>> response) {
+                try {
+                    api.removeItem(item.getId()).execute().body();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Item>> call, Throwable t) {
+
+            }
+        });
+
+    }
 
     // destroy, there no selected items, finish the actionMode
     private void destroyActionMode() {
@@ -350,49 +374,52 @@ public class ItemsFragment extends Fragment {
     }
 
     // delete item
-    private void removeItem(final Item item) {
-        // init Activity loader
-        getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
-            @Override
-            public Loader<List<Item>> onCreateLoader(final int id, Bundle args) {
-                return new AsyncTaskLoader<List<Item>>(getContext()) {
-                    @Override
-                    public List<Item> loadInBackground() {
-                        try {
-                            //execute POST request
-                            api.removeItem(item.getId()).execute().body();
-                            //Log.i("ID_ITEM", String.valueOf(idItem) + " на удаление.");
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            return null;
-                        }
-                        return null;
-                    }
-                };
-            }
+//    private void removeSelectedItem(final Item item) {
 
-            @Override
-            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
-                // comes the list items_fragment after completion
-                if (data == null) {
-                    Toast.makeText(getContext(), R.string.errorDeleteItem, Toast.LENGTH_SHORT).show();
-                    // hide refresh layout
-                    refreshLayout.setRefreshing(false);
-                } else {
-                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
-                    itemsAdapter.clear();
-                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
-                    // hide refresh layout
-                    refreshLayout.setRefreshing(false);
-                }
-            }
+    // init Activity loader
+//        getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+//            @Override
+//            public Loader<List<Item>> onCreateLoader(final int id, Bundle args) {
+//                return new AsyncTaskLoader<List<Item>>(getContext()) {
+//                    @Override
+//                    public List<Item> loadInBackground() {
+//                        try {
+//                            //execute POST request
+//                            api.removeItem(item.getId()).execute().body();
+//                            //Log.i("ID_ITEM", String.valueOf(idItem) + " на удаление.");
+//                        } catch (Exception ex) {
+//                            ex.printStackTrace();
+//                            return null;
+//                        }
+//                        return null;
+//                    }
+//                };
+//            }
+//
+//            @Override
+//            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
+//                // comes the list items_fragment after completion
+//                if (data == null) {
+//                    Toast.makeText(getContext(), R.string.errorDeleteItem, Toast.LENGTH_SHORT).show();
+//                    // hide refresh layout
+//                    refreshLayout.setRefreshing(false);
+//                } else {
+//                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
+//                    itemsAdapter.clear();
+//                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
+//                    // hide refresh layout
+//                    refreshLayout.setRefreshing(false);
+//                }
+//            }
+//
+//            @Override
+//            public void onLoaderReset(Loader<List<Item>> loader) {
+//
+//            }
+//        }).forceLoad();
 
-            @Override
-            public void onLoaderReset(Loader<List<Item>> loader) {
 
-            }
-        }).forceLoad();
-    }
+//    }
 
     // getting user added data in AddItemActivity
     @Override
