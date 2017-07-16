@@ -126,7 +126,6 @@ public class ItemsFragment extends Fragment {
 
             }
         });
-
     }
 
     // destroy, there no selected items, finish the actionMode
