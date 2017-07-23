@@ -49,7 +49,7 @@ public class ItemsFragment extends Fragment {
     public static final String ARG_TYPE = "type";
     private String type;
     private LSApi api;
-    private FloatingActionButton fabAdd;
+   // private FloatingActionButton fabAdd;
     private SwipeRefreshLayout refreshLayout;
 
     // Actions
@@ -132,7 +132,7 @@ public class ItemsFragment extends Fragment {
     private void destroyActionMode() {
         actionMode.finish();
         actionMode = null;
-        fabAdd.setVisibility(View.VISIBLE);
+        //fabAdd.setVisibility(View.VISIBLE);
         itemsAdapter.clearSelections();
     }
 
@@ -156,15 +156,15 @@ public class ItemsFragment extends Fragment {
         // set color in refresh
         refreshLayout.setColorSchemeResources(R.color.dark1, R.color.dark2, R.color.dark3);
 
-        fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
-        fabAdd.setOnClickListener(new FloatingActionButton.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddItemActivity.class);
-                intent.putExtra(AddItemActivity.EXTRA_TYPE, type);
-                startActivityForResult(intent, AddItemActivity.RC_ADD_ITEM);
-            }
-        });
+//        fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
+//        fabAdd.setOnClickListener(new FloatingActionButton.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), AddItemActivity.class);
+//                intent.putExtra(AddItemActivity.EXTRA_TYPE, type);
+//                startActivityForResult(intent, AddItemActivity.RC_ADD_ITEM);
+//            }
+//        });
 
         // https://stackoverflow.com/questions/5425568/how-to-use-setarguments-and-getarguments-methods-in-fragments
         if (Objects.equals(type, Item.TYPE_EXPENSE)) {
@@ -283,7 +283,7 @@ public class ItemsFragment extends Fragment {
                 actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
             }
             // hide FAB in select items
-            fabAdd.setVisibility(View.GONE);
+           // fabAdd.setVisibility(View.GONE);
         }
     }
 
@@ -330,67 +330,21 @@ public class ItemsFragment extends Fragment {
     }
 
     // add item
-    private void addItem(final int price, final String name, final String type) {
-        // init Activity loader
-        getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
-            @Override
-            public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader<List<Item>>(getContext()) {
-                    @Override
-                    public List<Item> loadInBackground() {
-                        try {
-                            // execute POST request
-                            return api.addItem(price, name, type).execute().body();
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            return null;
-                        }
-                    }
-                };
-            }
-
-            @Override
-            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
-                // comes the list items_fragment after completion
-                if (data == null) {
-                    //Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
-                    // hide refresh layout
-                    refreshLayout.setRefreshing(false);
-                } else {
-                    itemsAdapter.clear();
-                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
-                    // hide refresh layout
-                    refreshLayout.setRefreshing(false);
-                    Toast.makeText(getContext(), R.string.okAddItem, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onLoaderReset(Loader<List<Item>> loader) {
-
-            }
-        }).forceLoad();
-    }
-
-    // delete item
-//    private void removeSelectedItem(final Item item) {
-
-    // init Activity loader
-//        getLoaderManager().initLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+//    private void addItem(final int price, final String name, final String type) {
+//        // init Activity loader
+//        getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
 //            @Override
-//            public Loader<List<Item>> onCreateLoader(final int id, Bundle args) {
+//            public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
 //                return new AsyncTaskLoader<List<Item>>(getContext()) {
 //                    @Override
 //                    public List<Item> loadInBackground() {
 //                        try {
-//                            //execute POST request
-//                            api.removeItem(item.getId()).execute().body();
-//                            //Log.i("ID_ITEM", String.valueOf(idItem) + " на удаление.");
+//                            // execute POST request
+//                            return api.addItem(price, name, type).execute().body();
 //                        } catch (Exception ex) {
 //                            ex.printStackTrace();
 //                            return null;
 //                        }
-//                        return null;
 //                    }
 //                };
 //            }
@@ -399,15 +353,15 @@ public class ItemsFragment extends Fragment {
 //            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
 //                // comes the list items_fragment after completion
 //                if (data == null) {
-//                    Toast.makeText(getContext(), R.string.errorDeleteItem, Toast.LENGTH_SHORT).show();
+//                    //Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
 //                    // hide refresh layout
 //                    refreshLayout.setRefreshing(false);
 //                } else {
-//                    Toast.makeText(getContext(), R.string.okDeleteItem, Toast.LENGTH_SHORT).show();
 //                    itemsAdapter.clear();
 //                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
 //                    // hide refresh layout
 //                    refreshLayout.setRefreshing(false);
+//                    Toast.makeText(getContext(), R.string.okAddItem, Toast.LENGTH_SHORT).show();
 //                }
 //            }
 //
@@ -416,18 +370,16 @@ public class ItemsFragment extends Fragment {
 //
 //            }
 //        }).forceLoad();
-
-
 //    }
 
-    // getting user added data in AddItemActivity
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == AddItemActivity.RC_ADD_ITEM) {
-            Item item = (Item) data.getSerializableExtra(AddItemActivity.RESULT_ITEM);
-            addItem(item.getPrice(), item.getName(), item.getType());
-        }
-    }
+//    // getting user added data in AddItemActivity
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == AddItemActivity.RC_ADD_ITEM) {
+//            Item item = (Item) data.getSerializableExtra(AddItemActivity.RESULT_ITEM);
+//            addItem(item.getPrice(), item.getName(), item.getType());
+//        }
+//    }
 }
