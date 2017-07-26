@@ -10,6 +10,7 @@ public class Item implements Serializable {
     // this is POJO object
     public static final String TYPE_EXPENSE = "expense";
     public static final String TYPE_INCOME = "income";
+    public static final String TYPE_BALANCE = "balance";
 
     @SerializedName("id")
     @Expose

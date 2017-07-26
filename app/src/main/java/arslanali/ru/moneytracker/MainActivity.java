@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
     private class MainPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] titles;
-        private final String[] types = {Item.TYPE_EXPENSE, Item.TYPE_INCOME};
+        // init header
+        private final String[] types = {Item.TYPE_EXPENSE, Item.TYPE_INCOME, Item.TYPE_BALANCE};
 
         MainPagerAdapter() {
             super(getSupportFragmentManager());
@@ -84,14 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-
-//            if (position > types.length -1) {
-//                position = 0;
-//                type = types[position];
-//            } else {
-//                position = 1;
-//                type = types[position];
-//            }
 
             type = types[position];
 
