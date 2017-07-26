@@ -49,7 +49,7 @@ public class ItemsFragment extends Fragment {
     public static final String ARG_TYPE = "type";
     private String type;
     private LSApi api;
-   // private FloatingActionButton fabAdd;
+    // private FloatingActionButton fabAdd;
     private SwipeRefreshLayout refreshLayout;
 
     // Actions
@@ -283,7 +283,7 @@ public class ItemsFragment extends Fragment {
                 actionMode.setTitle(String.valueOf(itemsAdapter.getSelectedItemCount()) + " выбрано");
             }
             // hide FAB in select items
-           // fabAdd.setVisibility(View.GONE);
+            // fabAdd.setVisibility(View.GONE);
         }
     }
 
@@ -330,56 +330,56 @@ public class ItemsFragment extends Fragment {
     }
 
     // add item
-//    private void addItem(final int price, final String name, final String type) {
-//        // init Activity loader
-//        getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
-//            @Override
-//            public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
-//                return new AsyncTaskLoader<List<Item>>(getContext()) {
-//                    @Override
-//                    public List<Item> loadInBackground() {
-//                        try {
-//                            // execute POST request
-//                            return api.addItem(price, name, type).execute().body();
-//                        } catch (Exception ex) {
-//                            ex.printStackTrace();
-//                            return null;
-//                        }
-//                    }
-//                };
-//            }
-//
-//            @Override
-//            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
-//                // comes the list items_fragment after completion
-//                if (data == null) {
-//                    //Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
-//                    // hide refresh layout
-//                    refreshLayout.setRefreshing(false);
-//                } else {
-//                    itemsAdapter.clear();
-//                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
-//                    // hide refresh layout
-//                    refreshLayout.setRefreshing(false);
-//                    Toast.makeText(getContext(), R.string.okAddItem, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onLoaderReset(Loader<List<Item>> loader) {
-//
-//            }
-//        }).forceLoad();
-//    }
+    private void addItem(final int price, final String name, final String type) {
+        // init Activity loader
+        getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
+            @Override
+            public Loader<List<Item>> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<List<Item>>(getContext()) {
+                    @Override
+                    public List<Item> loadInBackground() {
+                        try {
+                            // execute POST request
+                            return api.addItem(price, name, type).execute().body();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
 
-//    // getting user added data in AddItemActivity
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == AddItemActivity.RC_ADD_ITEM) {
-//            Item item = (Item) data.getSerializableExtra(AddItemActivity.RESULT_ITEM);
-//            addItem(item.getPrice(), item.getName(), item.getType());
-//        }
-//    }
+            @Override
+            public void onLoadFinished(Loader<List<Item>> loader, List<Item> data) {
+                // comes the list items_fragment after completion
+                if (data == null) {
+                    //Toast.makeText(getContext(), R.string.errorAddItem, Toast.LENGTH_SHORT).show();
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                } else {
+                    itemsAdapter.clear();
+                    itemsAdapter.addAll(data); // insert data items_fragment in adapter and view user
+                    // hide refresh layout
+                    refreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), R.string.okAddItem, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<List<Item>> loader) {
+
+            }
+        }).forceLoad();
+    }
+
+    // getting user added data in AddItemActivity
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AddItemActivity.RC_ADD_ITEM) {
+            Item item = (Item) data.getSerializableExtra(AddItemActivity.RESULT_ITEM);
+            addItem(item.getPrice(), item.getName(), item.getType());
+        }
+    }
 }
