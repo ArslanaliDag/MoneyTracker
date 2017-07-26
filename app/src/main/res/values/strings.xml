@@ -48,5 +48,6 @@
     <string name="income">доход</string>
     <string name="price">%1$d \u20bd</string>
     <string name="errorDiagram">Ошибка при загрузке диаграммы</string>
+    <string name="fab_behavior">arslanali.ru.moneytracker.fab.AddFabBehavior</string>
 
 </resources>

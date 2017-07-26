@@ -46,7 +46,8 @@ public interface LSApi {
 
     // delete item
     @POST("items/remove")
-    Call<List<Item>> deleteItem(@Query("id") int idItem);
+    Call<List<Item>> removeItem(@Query("id") int idItem);
+//    Call<Item> removeItem(@Query("id") int idItem);
 
     // get balance and view in my diagram
     @GET("balance")
