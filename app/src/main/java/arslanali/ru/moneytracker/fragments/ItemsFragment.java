@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import arslanali.ru.moneytracker.AddItemActivity;
 import arslanali.ru.moneytracker.LSApp;
@@ -38,10 +36,11 @@ import retrofit2.Callback;
 
 public class ItemsFragment extends Fragment {
 
+    // https://stackoverflow.com/questions/5425568/how-to-use-setarguments-and-getarguments-methods-in-fragments
+
     // loader state
     private static final int LOADER_ITEMS = 0;
     private static final int LOADER_ADD = 1;
-    private static final int LOADER_DELETE = 2;
 
     // include adapter
     private ItemsAdapter itemsAdapter = new ItemsAdapter();
@@ -49,7 +48,6 @@ public class ItemsFragment extends Fragment {
     public static final String ARG_TYPE = "type";
     private String type;
     private LSApi api;
-    // private FloatingActionButton fabAdd;
     private SwipeRefreshLayout refreshLayout;
 
     // Actions
@@ -123,7 +121,6 @@ public class ItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Item>> call, Throwable t) {
-
             }
         });
     }
@@ -132,7 +129,6 @@ public class ItemsFragment extends Fragment {
     private void destroyActionMode() {
         actionMode.finish();
         actionMode = null;
-        //fabAdd.setVisibility(View.VISIBLE);
         itemsAdapter.clearSelections();
     }
 
@@ -153,121 +149,56 @@ public class ItemsFragment extends Fragment {
 
         // refresh data
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
-        // set color in refresh
         refreshLayout.setColorSchemeResources(R.color.dark1, R.color.dark2, R.color.dark3);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadItems(type);
+            }
+        });
 
-//        fabAdd = (FloatingActionButton) view.findViewById(R.id.fabAdd);
-//        fabAdd.setOnClickListener(new FloatingActionButton.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AddItemActivity.class);
-//                intent.putExtra(AddItemActivity.EXTRA_TYPE, type);
-//                startActivityForResult(intent, AddItemActivity.RC_ADD_ITEM);
-//            }
-//        });
+        // Init data RecyclerView getItems
+        final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
+        items.setAdapter(itemsAdapter);
 
-        // https://stackoverflow.com/questions/5425568/how-to-use-setarguments-and-getarguments-methods-in-fragments
-        if (Objects.equals(type, Item.TYPE_EXPENSE)) {
-            // Init data rashod RecyclerView getItems
-            final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-            items.setAdapter(itemsAdapter);
+        // catch long tab
+        gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
 
-            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    loadItems(type);
-                }
-            });
+            @Override
+            public void onLongPress(MotionEvent motionEvent) {
 
-            // catch long tab
-            gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+                boolean hasCheckedItems = itemsAdapter.getItemCount() > 0;//Check if any items are already selected or not
 
-                @Override
-                public void onLongPress(MotionEvent motionEvent) {
-
-                    boolean hasCheckedItems = itemsAdapter.getItemCount() > 0;//Check if any items are already selected or not
-
-                    if (hasCheckedItems && actionMode == null) {
-                        // there are some selected items, start the actionMode
-                        actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-                        // find index selected item(find index selected view)
-                        toggleSelection(motionEvent, items);
-                    }
-                }
-
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                    // Select or unselect other items by clicking
+                if (hasCheckedItems && actionMode == null) {
+                    // there are some selected items, start the actionMode
+                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
                     // find index selected item(find index selected view)
                     toggleSelection(motionEvent, items);
-                    return super.onSingleTapConfirmed(motionEvent);
                 }
-            });
-            // Necessary for gestures, any touch to the screen
-            items.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    return gestureDetector.onTouchEvent(motionEvent);
-                }
-            });
+            }
 
-            // Necessary to call our Application - LSApp
-            api = ((LSApp) getActivity().getApplication()).initApi();
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
+                // Select or unselect other items by clicking
+                // find index selected item(find index selected view)
+                toggleSelection(motionEvent, items);
+                return super.onSingleTapConfirmed(motionEvent);
+            }
+        });
 
-            // load expense getItems in create, view screen
-            loadItems(type);
+        // Necessary for gestures, any touch to the screen
+        items.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+        });
 
-        } else if (Objects.equals(type, Item.TYPE_INCOME)) {
+        // Necessary to call our Application - LSApp
+        api = ((LSApp) getActivity().getApplication()).initApi();
 
-            // Init data dohod RecyclerView getItems
-            final RecyclerView items = (RecyclerView) view.findViewById(R.id.items);
-            items.setAdapter(itemsAdapter);
-
-            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    loadItems(type);
-                }
-            });
-
-            // catch long tab
-            gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
-
-                @Override
-                public void onLongPress(MotionEvent motionEvent) {
-
-                    boolean hasCheckedItems = itemsAdapter.getItemCount() > 0;//Check if any items are already selected or not
-
-                    if (hasCheckedItems && actionMode == null) {
-                        // there are some selected items, start the actionMode
-                        actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
-                        // find index selected item(find index selected view)
-                        toggleSelection(motionEvent, items);
-                    }
-                }
-
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
-                    // Select or unselect other items by clicking
-                    // find index selected item(find index selected view)
-                    toggleSelection(motionEvent, items);
-                    return super.onSingleTapConfirmed(motionEvent);
-                }
-            });
-            // Necessary for gestures, any touch to the screen
-            items.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    return gestureDetector.onTouchEvent(motionEvent);
-                }
-            });
-
-            // Necessary to call our Application - LSApp
-            api = ((LSApp) getActivity().getApplication()).initApi();
-
-            // load expense getItems in create, view screen
-            loadItems(type);
-        }
+        // load expense getItems in create, view screen
+        loadItems(type);
     }
 
     private void toggleSelection(MotionEvent e, RecyclerView items) {
@@ -329,7 +260,6 @@ public class ItemsFragment extends Fragment {
         }).forceLoad();
     }
 
-    // add item
     private void addItem(final int price, final String name, final String type) {
         // init Activity loader
         getLoaderManager().initLoader(LOADER_ADD, null, new LoaderManager.LoaderCallbacks<List<Item>>() {

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 // combining case clocks
                 case 0:
                 case 1:
-                    showFab();
+                    //showFab();
                     ItemsFragment fragment = new ItemsFragment();
                     Bundle args = new Bundle();
                     // first TYPE_EXPENSE second TYPE_INCOME type from array types
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(args);
                     return fragment;
                 case 2:
-                    hideFab();
+                    // hideFab();
                     return new BalanceFragment();
                 default:
                     return null;

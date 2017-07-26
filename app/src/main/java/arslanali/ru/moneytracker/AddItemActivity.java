@@ -103,7 +103,7 @@ public class AddItemActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    // Check EditText is empty or not
+    // check EditText is empty or not
     private boolean isEmpty(EditText etText) {
 
         if (etText.getText().toString().trim().length() > 0)
